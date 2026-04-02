@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Young Technology - Creative thinking with human buildable and performance as AI built. We build websites, apps, and realtime hardware projects.">
+    <title>Young Technology | Creative Tech Solutions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tab Logos (Chrome/Apple/Web) -->
+    <link rel="icon" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    <link rel="shortcut icon" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" style="display: flex; align-items: center; gap: 0.8rem;">
+                <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Technology Logo" border="0" style="height: 40px; width: auto; border-radius: 8px;">
+                <span class="logo-accent" style="font-size: 1.4rem;">YOUNG TECH</span>
+            </a>
+
+            <button class="mobile-menu-btn" aria-label="Toggle navigation">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <ul class="nav-links">
+                <li class="nav-mobile-head">
+                    <span>Menu</span>
+                    <button class="nav-close-btn" aria-label="Close menu"><i data-lucide="x"></i></button>
+                </li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#faq" class="nav-link">FAQ</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="btn-primary-sm">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section">
+            <div class="hero-bg-elements">
+                <div class="glow-orb orb-1"></div>
+                <div class="glow-orb orb-2"></div>
+                <div class="grid-overlay"></div>
+            </div>
+
+            <div class="container hero-content">
+                <div class="badge">Innovation First</div>
+                <h1 class="hero-title">
+                    Creative Thinking.<br>
+                    <span class="gradient-text">AI Performance.</span><br>
+                    Human Built.
+                </h1>
+                <p class="hero-subtitle">
+                    We build cutting-edge websites, applications, and real-time hardware projects tailored to elevate
+                    your business in the digital era.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn-primary">Start a Project</a>
+                    <a href="#portfolio" class="btn-secondary">View Our Work</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Who <span class="gradient-text">We Are</span></h2>
+                    <p class="section-desc">At Young Technology, we merge creative vision with robust engineering.</p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-image">
+                        <div class="img-placeholder">
+                           <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Technology Logo" border="0" style="height: auto; width: auto; border-radius: 8px;">
+                            <div class="overlay-glow"></div>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <h3>Empowering the Future</h3>
+                        <p>Young Technology is an innovative tech firm dedicated to transforming ideas into reality. We
+                            believe in "creative thinking with human buildable and with performance as AI built."</p>
+                        <p>Our team consists of industry experts who specialize in delivering high-performance,
+                            intelligent, and scalable solutions that prioritize user experience and adaptability.</p>
+
+                        <div class="stats-row">
+                            <div class="stat-box">
+                                <span class="stat-number" id="v-projects">15+</span>
+                                <span class="stat-label">Projects Completed</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number" id="v-satisfaction">99.9%</span>
+                                <span class="stat-label">Client Satisfaction</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-number" id="v-support">24/7</span>
+                                <span class="stat-label">Support & Maintenance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Section -->
+                <div class="team-section" style="margin-top: 5rem;">
+                    <div class="section-header text-center">
+                        <h2 class="section-title">Meet Our <span class="gradient-text">Leadership</span></h2>
+                    </div>
+
+                    <!-- Founder -->
+                    <div class="founder-card"
+                        style="max-width: 400px; margin: 0 auto 3rem auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; padding: 2.5rem 2rem;">
+                        <img 
+                        src="1.jpg" alt="Founder"
+                            style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-glow); margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.2rem; color: var(--text-main);">RITHISH.V</h3>
+                        <p class="gradient-text" style="font-weight: 600; margin-bottom: 1rem;">Founder & CEO</p>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Visionary leader driving innovation and
+                            performance-driven technology, ensuring human-buildable architectures.</p>
+                    </div>
+
+                    <!-- Core Team of 4 -->
+                    <h3 class="text-center" style="margin-bottom: 2rem; color: var(--text-muted); font-weight: 500;">
+                        Core Technical Team</h3>
+                    <div class="team-grid"
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                        <!-- Team Member 1 -->
+                        <div class="team-card text-center"
+                            style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem 1rem;">
+                           <img src="https://i.ibb.co/6cCfFxGQ/sa.jpg"   alt="Team Member"
+                                style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+                            <h4>Lead Developer</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">SACHINBALA.G.D</p>
+                        </div>
+                        <!-- Team Member 2 -->
+                        <div class="team-card text-center"
+                            style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem 1rem;">
+                          <img src="https://i.ibb.co/HLGWTpk2/aj.jpg"   alt="Team Member"
+                                style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+                            <h4>Social Media Manager</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">AJAY KUMAR.S</p>
+                        </div>
+                        <!-- Team Member 3 -->
+                        <div class="team-card text-center"
+                            style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem 1rem;">
+                          <img src="https://i.ibb.co/h1cvJKb1/mug.jpg"   alt="Team Member"
+                                style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+                            <h4>TEAM MEMBER</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">MUGILAN.M.V</p>
+                        </div>
+                        <!-- Team Member 4 -->
+                        <!-- <div class="team-card text-center"
+                            style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem 1rem;">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300"
+                                alt="Team Member"
+                                style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+                            <h4>TEAM MEMBER</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">MOGITH.R.K</p>
+                        </div>  -->
+                          <!-- Team Member 5 -->
+                        <div class="team-card text-center"
+                            style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem 1rem;">
+                            <img src="https://i.ibb.co/CrTW1TT/DINESH.jpg" alt="Team Member"
+                                style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;">
+                            <h4>TEAM MEMBER</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem;">DINESH.B</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services section alt-bg">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our <span class="gradient-text">Expertise</span></h2>
+                    <p class="section-desc">Premium solutions for modern digital challenges.</p>
+                </div>
+
+                <div class="services-grid">
+                    <div class="service-card group">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="layout-template" class="service-icon"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>We build highly performant, responsive, and stunning websites tailored to engage your
+                            audience and drive conversions.</p>
+                    </div>
+
+                    <div class="service-card group">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="smartphone" class="service-icon"></i>
+                        </div>
+                        <h3>App Development</h3>
+                        <p>Engaging mobile applications native and cross-platform designed with beautiful UI and
+                            seamless user experience.</p>
+                    </div>
+
+                    <div class="service-card group">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="bot" class="service-icon"></i>
+                        </div>
+                        <h3>Realtime Hardware</h3>
+                        <p>Integration of IoT and real-time hardware projects with smart interfaces to automate and
+                            innovate physical spaces.</p>
+                    </div>
+
+                    <div class="service-card group">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="sparkles" class="service-icon"></i>
+                        </div>
+                        <h3>AI Integration</h3>
+                        <p>Embedding artificial intelligence directly into your products for performance, automation,
+                            and intelligent decision making.</p>
+                    </div>
+                    
+                    <div class="service-card group">
+                        <div class="service-icon-wrapper">
+                            <i data-lucide="video" class="service-icon"></i>
+                        </div>
+                        <h3>Video & Photo Editing</h3>
+                        <p>Professional video production and high-end photo retouching to elevate your brand's visual identity and marketing materials.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+                    <p class="section-desc">A glimpse into our recent successful deliveries.</p>
+                </div>
+
+                <div class="portfolio-grid" id="portfolio-grid-container">
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">
+                        <i data-lucide="loader" class="spin"></i> Loading featured projects...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing section alt-bg">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Clear & Adaptable <span class="gradient-text">Pricing</span></h2>
+                    <p class="section-desc">We offer plans that scale with your ambitions.</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Basic -->
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>Starter</h3>
+                            <div class="price-amount">₹6,999<span
+                                    style="font-size:1.2rem;color:var(--text-muted)">+</span></div>
+                            <p>For startups needing a solid foundation.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i data-lucide="check-circle-2"></i> Responsive Website</li>
+                            <li><i data-lucide="check-circle-2"></i> Basic SEO Optimization</li>
+                            <li><i data-lucide="check-circle-2"></i> 1 Month Support</li>
+                        </ul>
+                        <a href="#contact" class="btn-outline w-full">Get Started</a>
+                    </div>
+
+                    <!-- Pro -->
+                    <div class="price-card popular">
+                        <div class="popular-badge">Most Chosen</div>
+                        <div class="price-header">
+                            <h3>Professional</h3>
+                            <div class="price-amount">₹19,999<span
+                                    style="font-size:1.2rem;color:var(--text-muted)">+</span></div>
+                            <p>For growing businesses seeking expansion.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i data-lucide="check-circle-2"></i> Custom Web/App Solution</li>
+                            <li><i data-lucide="check-circle-2"></i> Advanced Animations & DB</li>
+                            <li><i data-lucide="check-circle-2"></i> Real-time Features</li>
+                            <li><i data-lucide="check-circle-2"></i> 6 Months Support</li>
+                        </ul>
+                        <a href="#contact" class="btn-primary w-full">Get Started</a>
+                    </div>
+
+                    <!-- Enterprise -->
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>Enterprise</h3>
+                            <div class="price-amount">₹49,999<span
+                                    style="font-size:1.2rem;color:var(--text-muted)">+</span></div>
+                            <p>For large scale hardware & AI Integration.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i data-lucide="check-circle-2"></i> Full System Architecture</li>
+                            <li><i data-lucide="check-circle-2"></i> Realtime Hardware Control</li>
+                            <li><i data-lucide="check-circle-2"></i> Custom AI Implementation</li>
+                            <li><i data-lucide="check-circle-2"></i> 24/7 Priority Support</li>
+                        </ul>
+                        <a href="#contact" class="btn-outline w-full">Contact Sales</a>
+                    </div>
+                </div>
+
+                <!-- Custom Addon -->
+                <div class="pricing-addon" style="margin-top: 3rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                    <div style="flex: 1; min-width: 250px;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="video" style="color: #2563eb;"></i> Video & Photo Editing</h3>
+                        <p style="color: var(--text-muted); font-size: 1.05rem;">Looking for professional video production, cinematic color grading, or high-end aesthetic photo retouching? Pricing scales flexibly depending precisely on your custom project scope and media requirements.</p>
+                    </div>
+                    <div style="text-align: right; min-width: 200px;">
+                        <div style="font-size: 1.8rem; font-weight: 700; margin-bottom: 1rem;" class="gradient-text">Client Requested</div>
+                        <a href="#contact" class="btn-primary">Get Custom Quote <i data-lucide="arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Common <span class="gradient-text">Questions</span></h2>
+                    <p class="section-desc">Everything you need to know about working with us.</p>
+                </div>
+
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            What technologies do you use for web and app development?
+                            <i data-lucide="chevron-down" class="faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We use modern, fast, and scalable technologies. Depending on the project, we work with
+                                React, Next.js, Vue, Node.js, Python, Flutter, and Swift, always ensuring "AI-level
+                                performance".</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Can you build custom realtime hardware solutions?
+                            <i data-lucide="chevron-down" class="faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, we specialize in IoT, embedded systems, and real-time controller interfaces,
+                                creating human-buildable technology connected seamlessly to your software.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            Do you provide post-launch support?
+                            <i data-lucide="chevron-down" class="faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Absolutely. We offer dedicated maintenance, updates, and optimization services to ensure
+                                your product remains scalable and up-to-date with changing trends.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section alt-bg">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h2 class="section-title">Let's Build <span class="gradient-text">Together</span></h2>
+                        <p class="contact-desc">Ready to start your next big project? Whether it's a website, app, or
+                            realtime hardware project, we're here to help.</p>
+
+                        <div class="contact-details">
+                            <div class="contact-method">
+                                <div class="icon-box">
+                                    <i data-lucide="mail"></i>
+                                </div>
+                                <div>
+                                    <h4>Email Us</h4>
+                                    <p>youngtechnology.gobi@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-method">
+                                <div class="icon-box">
+                                    <i data-lucide="share-2"></i>
+                                </div>
+                                <div>
+                                    <h4>Follow Us</h4>
+                                    <div class="contact-social" style="display:flex; gap:0.5rem; margin-top:0.3rem;">
+                                        <a href="#" style="color:var(--primary)"><i data-lucide="twitter"></i></a>
+                                        <a href="#" style="color:var(--primary)"><i data-lucide="linkedin"></i></a>
+                                        <a href="#" style="color:var(--primary)"><i data-lucide="instagram"></i></a>
+                                        <a href="#" style="color:var(--primary)"><i data-lucide="facebook"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required placeholder="john@company.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">I'm interested in...</label>
+                            <select id="interest" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="website">Website Development</option>
+                                <option value="app">Mobile App Development</option>
+                                <option value="hardware">Realtime Hardware Project</option>
+                                <option value="ai">AI Integration</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" rows="4" required
+                                placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary submit-btn">Send Message <i
+                                data-lucide="send"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Newsletter Section -->
+        <section class="newsletter section" style="padding-top:2rem; padding-bottom:5rem;">
+            <div class="container text-center">
+                <div class="newsletter-wrapper"
+                    style="max-width: 600px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                    <h2 class="section-title" style="font-size: 2rem;">Get Our <span
+                            class="gradient-text">Updates</span></h2>
+                    <p class="section-desc" style="margin-bottom: 2rem;">Subscribe for the latest in AI, tech trends,
+                        and exclusive strategies.</p>
+                    <form class="newsletter-form" id="newsletter-form"
+                        style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+                        <input type="email" id="newsletter-email" placeholder="Enter your email" required
+                            style="flex:1; min-width:200px; padding: 1rem 1.2rem; border-radius: 50px; border: 1px solid var(--border-color); outline: none;">
+                        <button type="submit" class="btn-primary" id="newsletter-btn">Subscribe <i
+                                data-lucide="arrow-right"></i></button>
+                    </form>
+                    <p class="subscribe-msg"
+                        style="display: none; margin-top: 1rem; font-weight: 500; font-size: 0.95rem;"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal"><i data-lucide="x"></i></button>
+            <div class="modal-img-container"
+                style="width: 100%; height: 250px; background: #e2e8f0; border-radius: 16px; overflow: hidden; margin-bottom: 1.5rem; position: relative;">
+                <img id="modal-img" src="" alt="Project Image"
+                    style="width:100%; height:100%; object-fit:cover; display:none;">
+            </div>
+            <h3 id="modal-title" class="section-title" style="font-size:1.8rem; margin-bottom:1rem;"></h3>
+            <p id="modal-desc" class="section-desc"
+                style="text-align:left; margin-bottom:1.5rem; color:var(--text-main); font-size:1rem;"></p>
+            <div class="modal-actions" style="display:flex; gap:1rem; justify-content:center; flex-wrap: wrap;">
+                <a id="modal-link" href="#" target="_blank" class="btn-primary">Visit Website <i
+                        data-lucide="external-link"></i></a>
+                <a href="#contact" class="btn-outline">Interested? Contact Us</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="logo" style="display: flex; align-items: center; gap: 0.8rem;">
+                        <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Technology Logo" border="0" style="height: 40px; width: auto; border-radius: 8px;">
+                        <span class="logo-accent" style="font-size: 1.4rem;">YOUNG TECH</span>
+                    </a>
+                    <p>Creative thinking with human buildable and with performance as AI built.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#services">Services</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="#faq">FAQ</a>
+                    <a href="#about">About</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://wa.me/918012676122?text=Hello%20Young%20Technology!%20I'd%20like%20to%20talk%20about%20a%20project."
+                        target="_blank" aria-label="WhatsApp">
+                        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#25D366"
+                                d="M12.006 2.05A9.95 9.95 0 0 0 2.05 12c0 1.76.46 3.47 1.33 4.98L2 22l5.14-1.35a9.96 9.96 0 0 0 4.86 1.25h.01A9.95 9.95 0 0 0 22 12a9.95 9.95 0 0 0-9.99-9.95z" />
+                            <path fill="#FFF"
+                                d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.8-1.5-1.78-1.67-2.08-.18-.3 0-.46.15-.6.13-.15.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.68-1.64-.93-2.25-.24-.6-.48-.52-.65-.53-.17-.01-.35-.01-.55-.01-.2 0-.52.07-.8.37s-1.07 1.05-1.07 2.56 1.1 2.97 1.25 3.17c.15.2 2.16 3.3 5.24 4.63.73.31 1.3.5 1.75.64.74.24 1.41.2 1.94.13.6-.09 1.77-.73 2.02-1.43.25-.7.25-1.3.17-1.43-.07-.12-.27-.2-.57-.35z" />
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/young_technology_gobi" target="_blank" aria-label="Instagram">
+                        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0">
+                                    <stop offset="0%" stop-color="#F58529"></stop>
+                                    <stop offset="20%" stop-color="#FEDA77"></stop>
+                                    <stop offset="40%" stop-color="#DD2A7B"></stop>
+                                    <stop offset="80%" stop-color="#8134AF"></stop>
+                                    <stop offset="100%" stop-color="#515BD4"></stop>
+                                </linearGradient>
+                            </defs>
+                            <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig-grad)" />
+                            <rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#FFF"
+                                stroke-width="1.8" />
+                            <circle cx="12" cy="12" r="2.8" fill="none" stroke="#FFF" stroke-width="1.8" />
+                            <circle cx="15.8" cy="8.2" r="1.3" fill="#FFF" />
+                        </svg>
+                    </a>
+                    <a href="https://t.me/rithish_ytceo?text=Hello%20Young%20Technology!%20I'd%20like%20to%20talk%20about%20a%20project."
+                        target="_blank" aria-label="Telegram">
+                        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="12" fill="#0088cc" />
+                            <path fill="#FFF"
+                                d="M5.4 11.5l12.8-5c.6-.2 1.1.2 1 .8l-2.2 10.4c-.1.6-.5.7-1 .4l-2.8-2-2 1.9c-.2.2-.4.4-.8.4l.3-3 5.4-4.9c.2-.2-.1-.4-.4-.2l-6.7 4.2-2.9-.9c-.6-.2-.6-.6.1-.9z" />
+                        </svg>
+                    </a>
+                    <a href="mailto:youngtechnology.gobi@gmail.com?subject=Project%20Inquiry&body=Hello%20Young%20Technology!%20I'd%20like%20to%20talk%20about%20a%20project."
+                        aria-label="Email">
+                        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="2" y="4" width="20" height="16" rx="3" fill="#EA4335" />
+                            <path d="M22 6L12 13 2 6" fill="none" stroke="#FFF" stroke-width="2" />
+                        </svg>
+                    </a>
+                    <a href="https://youtube.com/@YOUNG-TECHNOLOGY" target="_blank" aria-label="YouTube">
+                        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill="#FF0000"
+                                d="M22.5 7.1c-.2-1-.9-1.7-1.7-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.3A2.4 2.4 0 0 0 1.5 7C1.2 8.6 1.2 12 1.2 12s0 3.4.3 5c.2.9.9 1.6 1.7 1.8 1.5.3 8.8.3 8.8.3s7.3 0 8.8-.3c.9-.2 1.6-.9 1.7-1.8.3-1.6.3-5 .3-5s0-3.4-.3-4.9z" />
+                            <path fill="#FFF" d="M10 15.5l6-3.5-6-3.5v7z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Young Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/918012676122?text=Hello%20Young%20Technology!%20I'd%20like%20to%20talk%20about%20a%20project." 
+       target="_blank" 
+       class="floating-wa" 
+       aria-label="Direct WhatsApp Contact">
+        <svg width="32" height="32" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#FFF" d="M12.006 2.05A9.95 9.95 0 0 0 2.05 12c0 1.76.46 3.47 1.33 4.98L2 22l5.14-1.35a9.96 9.96 0 0 0 4.86 1.25h.01A9.95 9.95 0 0 0 22 12a9.95 9.95 0 0 0-9.99-9.95zm5.464 12.33c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.8-1.5-1.78-1.67-2.08-.18-.3 0-.46.15-.6.13-.15.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.68-1.64-.93-2.25-.24-.6-.48-.52-.65-.53-.17-.01-.35-.01-.55-.01-.2 0-.52.07-.8.37s-1.07 1.05-1.07 2.56 1.1 2.97 1.25 3.17c.15.2 2.16 3.3 5.24 4.63.73.31 1.3.5 1.75.64.74.24 1.41.2 1.94.13.6-.09 1.77-.73 2.02-1.43.25-.7.25-1.3.17-1.43-.07-.12-.27-.2-.57-.35z"/>
+        </svg>
+    </a>
+
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
