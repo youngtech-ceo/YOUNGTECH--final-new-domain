@@ -283,6 +283,20 @@ h1, h2, h3, h4, .logo {
     width: 100%;
 }
 
+.nav-email {
+    color: var(--text-muted) !important;
+}
+
+.nav-email:hover {
+    color: var(--primary) !important;
+}
+
+@media (max-width: 1200px) and (min-width: 769px) {
+    .nav-email .email-text {
+        display: none;
+    }
+}
+
 .mobile-menu-btn {
     display: none;
     background: transparent;
