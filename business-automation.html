@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Business Automation & Custom CRM Systems | Young Tech</title>
+    <meta name="description" content="Young Tech constructs custom CRMs, internal process automations, inventory tracking managers, and interactive pricing calculators built to optimize operational efficiency.">
+    <meta name="keywords" content="Business Automation, CRM Systems, Process Automation, Cost Calculators, Young Tech, Gobi, Erode">
+    
+    <!-- Tab Logo -->
+    <link class="tab-logo" rel="icon" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Business Automation & CRM Solutions",
+      "serviceType": "EnterpriseSoftwareSolutions",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Young Tech",
+        "image": "https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png"
+      },
+      "description": "Custom customer relationship management software, digital cost estimation modules, and server automation triggers tailored to scale retail and SaaS operations."
+    }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+                <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Tech Logo" border="0" style="height: 40px; width: auto; border-radius: 8px;">
+                <span class="logo-accent" style="font-size: 1.4rem; font-weight: 800; color: var(--text-main);">YOUNG TECH</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="index.html#contact" class="btn-primary-sm">Start A Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding-top: 120px;">
+        <!-- Hero Section -->
+        <section class="section" style="padding: 80px 0 40px;">
+            <div class="container" style="text-align: center; max-width: 800px;">
+                <div class="badge" style="border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary); margin-bottom: 1rem;">OPERATIONAL EXCELLENCE</div>
+                <h1 style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; font-family: var(--font-heading); line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-main);">
+                    Premium <span class="gradient-text">Business Automation</span> Software
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem;">
+                    We build bespoke Customer Relationship Management (CRM) portals, automated operations loops, and digital cost projection calculators designed to save operational overhead and scale businesses.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="index.html#contact" class="btn-primary">Request Automation Blueprint <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features grid -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Business Automation <span class="gradient-text">Guarantees</span></h2>
+                    <p class="section-desc">We structure fast, reliable pipelines to synchronize databases, automate notifications, and display real-time leads.</p>
+                </div>
+
+                <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="briefcase" class="service-icon"></i></div>
+                        <h3>Custom CRM & Lead Portals</h3>
+                        <p>Track prospective customer journeys, log interaction histories, set follow-up schedules, and organize contract documentation in one secure, shared team dashboard.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="calculator" class="service-icon"></i></div>
+                        <h3>Interactive Cost Engines</h3>
+                        <p>Design client-facing digital calculators that automatically analyze user parameters and spit out accurate development estimations, improving lead capture rates.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="refresh-cw" class="service-icon"></i></div>
+                        <h3>Workflow Process Triggers</h3>
+                        <p>Replace repetitive manual updates with multi-service webhook connectors, automatic email reporting sequences, and background ledger reconciliations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 Young Tech. All rights reserved. Premium Business Automation Services.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+            
+            // Read active theme
+            const storedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', storedTheme);
+        });
+    </script>
+</body>
+</html>

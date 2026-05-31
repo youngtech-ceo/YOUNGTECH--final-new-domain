@@ -19,10 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // References
     const messagesRef = database.ref('contacts');
     const subscribersRef = database.ref('subscribers');
+    const callbacksRef = database.ref('callbacks');
+    const bookingsRef = database.ref('bookings');
 
     // DOM Elements
     const messagesBody = document.getElementById('messages-body');
     const subscribersBody = document.getElementById('subscribers-body');
+    const callbacksBody = document.getElementById('callbacks-body');
+    const bookingsBody = document.getElementById('bookings-body');
     const emailAllBtn = document.getElementById('email-all-btn');
 
     // Load Messages
@@ -112,6 +116,86 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Firebase Subscribers Error:", error);
     });
 
+    // Load Callbacks
+    callbacksRef.on('value', (snapshot) => {
+        if (!callbacksBody) return;
+        callbacksBody.innerHTML = '';
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            Object.keys(data).reverse().forEach(key => {
+                const cb = data[key];
+                if (!cb) return;
+
+                const safeDate = new Date(cb.timestamp || Date.now()).toLocaleString('en-IN');
+                const safePhone = cb.phone || '-';
+
+                callbacksBody.innerHTML += `
+                    <tr>
+                        <td>${safeDate}</td>
+                        <td><a href="tel:${safePhone}" style="color:var(--primary); font-weight:700;">${safePhone}</a></td>
+                        <td><button class="btn-danger delete-callback" data-id="${key}">Delete</button></td>
+                    </tr>
+                `;
+            });
+
+            // Delete callback listener
+            document.querySelectorAll('.delete-callback').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (confirm('Delete this callback request?')) {
+                        database.ref('callbacks/' + e.target.getAttribute('data-id')).remove();
+                    }
+                });
+            });
+        } else {
+            callbacksBody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 2rem;">No callback requests found.</td></tr>';
+        }
+    }, (error) => {
+        callbacksBody.innerHTML = `<tr><td colspan="3" style="color:#ef4444; font-weight:bold; padding: 2rem;">Firebase Error: ${error.message}</td></tr>`;
+        console.error("Firebase Callbacks Error:", error);
+    });
+
+    // Load Bookings
+    bookingsRef.on('value', (snapshot) => {
+        if (!bookingsBody) return;
+        bookingsBody.innerHTML = '';
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            Object.keys(data).reverse().forEach(key => {
+                const b = data[key];
+                if (!b) return;
+
+                const safeTimestamp = new Date(b.timestamp || Date.now()).toLocaleString('en-IN');
+                const safeDate = b.date || '-';
+                const safeTime = b.time || '-';
+                const safeEmail = b.email || '-';
+
+                bookingsBody.innerHTML += `
+                    <tr>
+                        <td>${safeTimestamp}</td>
+                        <td><strong>${safeDate}</strong></td>
+                        <td><span style="background:var(--badge-bg); color:var(--primary); padding:0.25rem 0.5rem; border-radius:4px; font-weight:600;">${safeTime}</span></td>
+                        <td><a href="mailto:${safeEmail}" style="color:var(--primary)">${safeEmail}</a></td>
+                        <td><button class="btn-danger delete-booking" data-id="${key}">Delete</button></td>
+                    </tr>
+                `;
+            });
+
+            // Delete booking listener
+            document.querySelectorAll('.delete-booking').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    if (confirm('Delete this booking?')) {
+                        database.ref('bookings/' + e.target.getAttribute('data-id')).remove();
+                    }
+                });
+            });
+        } else {
+            bookingsBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem;">No consultation bookings found.</td></tr>';
+        }
+    }, (error) => {
+        bookingsBody.innerHTML = `<tr><td colspan="5" style="color:#ef4444; font-weight:bold; padding: 2rem;">Firebase Error: ${error.message}</td></tr>`;
+        console.error("Firebase Bookings Error:", error);
+    });
+
     // --- Projects CRUD Logic ---
     const projectsRef = database.ref('projects');
     const projectsBody = document.getElementById('projects-body');
@@ -138,6 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const projectData = {
             title: document.getElementById('project-title').value,
             icon: document.getElementById('project-icon').value,
+            category: document.getElementById('project-category').value,
+            techStack: document.getElementById('project-techstack').value,
+            results: document.getElementById('project-results').value,
             img: document.getElementById('project-img').value,
             url: document.getElementById('project-url').value,
             desc: document.getElementById('project-desc').value,
@@ -164,12 +251,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const proj = data[key];
                 if (!proj) return;
                 
+                const catText = proj.category ? proj.category.toUpperCase() : 'WEB';
+                
                 htmlStr += `
                     <tr>
-                        <td><img src="${proj.img}" alt="${proj.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;"></td>
+                        <td><img src="${proj.img || '1.JPG'}" alt="${proj.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;"></td>
                         <td>
-                            <strong style="color: var(--text-main); font-size: 1.05rem;">${proj.title}</strong><br>
-                            <span style="font-size: 0.85rem; color: var(--text-muted);">${proj.desc}</span>
+                            <strong style="color: var(--text-main); font-size: 1.05rem;">${proj.title}</strong>
+                            <span style="background:var(--primary); color:#fff; font-size:0.7rem; font-weight:700; padding:0.15rem 0.4rem; border-radius:4px; margin-left:0.5rem; display:inline-block; line-height:1.2;">${catText}</span><br>
+                            <span style="font-size: 0.85rem; color: var(--text-muted);">${proj.desc}</span><br>
+                            <span style="font-size: 0.8rem; font-weight:600; color: var(--accent);">Stack: ${proj.techStack || '-'}</span> | 
+                            <span style="font-size: 0.8rem; font-weight:600; color: #10b981;">Outcome: ${proj.results || '-'}</span>
                         </td>
                         <td>
                             <div style="display:flex; align-items:center; gap:0.5rem;" title="${proj.icon}">
@@ -178,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </td>
                         <td>
                             <button class="edit-proj" data-id="${key}" style="background: var(--primary); color: white; padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.8rem; margin-right: 0.5rem; border:none; cursor:pointer;"
-                                data-title="${proj.title}" data-icon="${proj.icon}" data-img="${proj.img}" data-url="${proj.url}" data-desc="${proj.desc}">Edit</button>
+                                data-title="${proj.title}" data-icon="${proj.icon}" data-category="${proj.category || 'web'}" data-techstack="${proj.techStack || ''}" data-results="${proj.results || ''}" data-img="${proj.img || ''}" data-url="${proj.url || ''}" data-desc="${proj.desc || ''}">Edit</button>
                             <button class="btn-danger delete-proj" data-id="${key}">Delete</button>
                         </td>
                     </tr>
@@ -198,6 +290,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('project-id').value = id;
                     document.getElementById('project-title').value = e.target.getAttribute('data-title');
                     document.getElementById('project-icon').value = e.target.getAttribute('data-icon');
+                    document.getElementById('project-category').value = e.target.getAttribute('data-category');
+                    document.getElementById('project-techstack').value = e.target.getAttribute('data-techstack');
+                    document.getElementById('project-results').value = e.target.getAttribute('data-results');
                     document.getElementById('project-img').value = e.target.getAttribute('data-img');
                     document.getElementById('project-url').value = e.target.getAttribute('data-url');
                     document.getElementById('project-desc').value = e.target.getAttribute('data-desc');

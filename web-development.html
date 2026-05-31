@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Application Development Services | Young Tech</title>
+    <meta name="description" content="Young Tech engineers ultra-fast, responsive, and SEO-optimized custom web applications using React, Next.js, and Node.js. Build premium web solutions designed to scale.">
+    <meta name="keywords" content="Web Development, Next.js, React, Node.js, Custom Web Apps, Young Tech, Gobi">
+    
+    <!-- Tab Logo -->
+    <link rel="icon" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Web Application Development",
+      "serviceType": "SoftwareDevelopment",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Young Tech",
+        "image": "https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png"
+      },
+      "description": "Custom Next.js, React, and Node.js web applications engineered for sub-second page speeds and high conversions."
+    }
+    </script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+                <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Tech Logo" border="0" style="height: 40px; width: auto; border-radius: 8px;">
+                <span class="logo-accent" style="font-size: 1.4rem; font-weight: 800; color: var(--text-main);">YOUNG TECH</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="index.html#contact" class="btn-primary-sm">Start A Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding-top: 120px;">
+        <!-- Hero Section -->
+        <section class="section" style="padding: 80px 0 40px;">
+            <div class="container" style="text-align: center; max-width: 800px;">
+                <div class="badge" style="border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary); margin-bottom: 1rem;">ENTERPRISE ENGINEERING</div>
+                <h1 style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; font-family: var(--font-heading); line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-main);">
+                    Premium <span class="gradient-text">Web Application</span> Development
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem;">
+                    We build lightning-fast web solutions using Next.js and React, specifically optimized to achieve 100/100 Core Web Vitals and drive exponential revenue.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="index.html#contact" class="btn-primary">Request Development Blueprint <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features grid -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Web Engineering <span class="gradient-text">Guarantees</span></h2>
+                    <p class="section-desc">Every line of code is written to eliminate latency and rank highly on search layouts.</p>
+                </div>
+
+                <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="zap" class="service-icon"></i></div>
+                        <h3>Sub-Second Speeds</h3>
+                        <p>Server-side rendering (SSR) and advanced caching guarantees instant page paints under 1.2s, drastically improving retention.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="search" class="service-icon"></i></div>
+                        <h3>SEO Schema Architecture</h3>
+                        <p>We inject structured JSON-LD local schemas, FAQ data, and semantic tag hierarchies to ensure high local listing dominance.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="shield-check" class="service-icon"></i></div>
+                        <h3>Distributed Database Clusters</h3>
+                        <p>Configure auto-scaling server environments with AWS or Firebase database clusters to handle infinite user surges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 Young Tech. All rights reserved. Premium Web Development Services.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+            
+            // Read active theme
+            const storedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', storedTheme);
+        });
+    </script>
+</body>
+</html>
