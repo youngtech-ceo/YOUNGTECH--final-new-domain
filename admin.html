@@ -83,7 +83,34 @@
     </style>
 </head>
 <body>
-    <div class="admin-layout">
+    <!-- Security Access Gate Overlay -->
+    <div id="admin-auth-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #05070f; display: flex; align-items: center; justify-content: center; z-index: 999999; backdrop-filter: blur(20px);">
+        <div class="auth-card" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 24px; padding: 3rem; width: 90%; max-width: 450px; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);">
+            <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.2); display: flex; align-items: center; justify-content: center; color: #6366f1; margin: 0 auto 1.5rem;">
+                <i data-lucide="shield-check" style="width: 32px; height: 32px;"></i>
+            </div>
+            <h2 style="font-family: var(--font-heading); color: #f8fafc; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem;">Security Gateway</h2>
+            <p id="auth-instruction" style="font-size: 0.95rem; color: #94a3b8; margin-bottom: 2rem; line-height: 1.6;">Authorized administrators only. Submit your registered email and passcode to access the admin panel.</p>
+            
+            <!-- Credentials Form -->
+            <form id="admin-credentials-form" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+                <div style="display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.5rem;">
+                    <label for="admin-email" style="font-size: 0.85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Registered Email</label>
+                    <input type="email" id="admin-email" placeholder="rithishv1303@gmail.com" required style="padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.02); color: #f8fafc; font-size: 1rem; outline: none; transition: all 0.3s; width: 100%;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.8rem;">
+                    <label for="admin-password" style="font-size: 0.85rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Security Passcode</label>
+                    <input type="password" id="admin-password" placeholder="••••••••••••" required style="padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.02); color: #f8fafc; font-size: 1.1rem; letter-spacing: 2px; text-align: center; outline: none; transition: all 0.3s; width: 100%;">
+                </div>
+                <button type="submit" id="request-otp-btn" style="width: 100%; padding: 1rem; border-radius: 50px; border: none; background: linear-gradient(135deg, #6366f1, #a855f7); color: white; font-weight: 700; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);">
+                    Login Securely <i data-lucide="log-in" style="width: 18px; height: 18px;"></i>
+                </button>
+            </form>
+            <p id="admin-auth-error" style="display: none; margin-top: 1.2rem; color: #ef4444; font-size: 0.9rem; font-weight: 600; line-height: 1.5;"></p>
+        </div>
+    </div>
+
+    <div class="admin-layout" id="admin-dashboard" style="display: none;">
         <aside class="admin-sidebar">
             <a href="index.html" class="logo" style="margin-bottom: 3rem; justify-content: center; display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
                 <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Technology Logo" border="0" style="height: 32px; width: auto; border-radius: 6px;">
@@ -274,7 +301,10 @@
 
     <!-- Firebase Compat SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <!-- EmailJS browser SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="admin.js"></script>
 </body>
 </html>
