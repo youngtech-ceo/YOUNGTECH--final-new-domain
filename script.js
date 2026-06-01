@@ -15,6 +15,56 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Cyber-Security Escapement & Throttler Utilities
+    function sanitizeInput(str) {
+        if (typeof str !== 'string') return str;
+        return str.replace(/[<>]/g, tag => {
+            const repl = { '<': '&lt;', '>': '&gt;' };
+            return repl[tag] || tag;
+        });
+    }
+
+    function isRateLimited(formName) {
+        const maxRequests = 3;
+        const timeframeMs = 5 * 60 * 1000; // 5 minutes
+        const now = Date.now();
+        const storageKey = `rate_limit_${formName}`;
+        
+        let submissions = [];
+        try {
+            submissions = JSON.parse(localStorage.getItem(storageKey)) || [];
+        } catch (e) {
+            submissions = [];
+        }
+        
+        submissions = submissions.filter(time => now - time < timeframeMs);
+        
+        if (submissions.length >= maxRequests) {
+            return true;
+        }
+        
+        submissions.push(now);
+        localStorage.setItem(storageKey, JSON.stringify(submissions));
+        return false;
+    }
+
+    function getCooldownTimeRemaining(formName) {
+        const timeframeMs = 5 * 60 * 1000;
+        const now = Date.now();
+        const storageKey = `rate_limit_${formName}`;
+        let submissions = [];
+        try {
+            submissions = JSON.parse(localStorage.getItem(storageKey)) || [];
+        } catch (e) {
+            return 0;
+        }
+        submissions = submissions.filter(time => now - time < timeframeMs);
+        if (submissions.length === 0) return 0;
+        const oldestSub = submissions[0];
+        const remainingMs = timeframeMs - (now - oldestSub);
+        return Math.max(0, Math.ceil(remainingMs / 1000));
+    }
+
     // Initialize Lucide Icons
     if (window.lucide) {
         window.lucide.createIcons();
@@ -577,9 +627,36 @@ document.addEventListener('DOMContentLoaded', () => {
     if (calBookingForm) {
         calBookingForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('cal-email').value;
-            const date = selectedDateVal.value;
-            const time = selectedTimeVal.value;
+
+            // Honeypot bot protection check
+            const honeypot = document.getElementById('calendar-honeypot') ? document.getElementById('calendar-honeypot').value : '';
+            if (honeypot.trim() !== '') {
+                console.warn("Spam bot detected and blocked silently.");
+                // Return fake success to spoof the bot
+                bookingSuccessMsg.innerHTML = `<i data-lucide="check" style="vertical-align:middle; width:16px;"></i> Booked! Briefing scheduled on ${sanitizeInput(selectedDateVal.value)} at ${sanitizeInput(selectedTimeVal.value)}. Check your email.`;
+                bookingSuccessMsg.style.display = 'block';
+                if (window.lucide) window.lucide.createIcons();
+                calBookingForm.reset();
+                setTimeout(() => {
+                    calendarModal.classList.remove('active');
+                    bookingSuccessMsg.style.display = 'none';
+                }, 3000);
+                return;
+            }
+
+            // Rate Limit protection check
+            if (isRateLimited('calendar')) {
+                const timeRemaining = getCooldownTimeRemaining('calendar');
+                const mins = Math.ceil(timeRemaining / 60);
+                bookingSuccessMsg.textContent = `Too many requests. Please wait ${mins} minutes before booking another consultation.`;
+                bookingSuccessMsg.style.color = "#ef4444";
+                bookingSuccessMsg.style.display = 'block';
+                return;
+            }
+
+            const email = sanitizeInput(document.getElementById('cal-email').value);
+            const date = sanitizeInput(selectedDateVal.value);
+            const time = sanitizeInput(selectedTimeVal.value);
 
             const btn = calBookingForm.querySelector('button');
             const orig = btn.innerText;
@@ -641,12 +718,45 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = contactForm.querySelector('.submit-btn');
             const originalText = btn.innerHTML;
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const interest = document.getElementById('interest').value;
+            // Honeypot bot protection check
+            const honeypot = document.getElementById('contact-honeypot') ? document.getElementById('contact-honeypot').value : '';
+            if (honeypot.trim() !== '') {
+                console.warn("Spam bot detected and blocked silently.");
+                // Return fake success to spoof the bot
+                btn.innerHTML = 'Request Sent Securely! <i data-lucide="check"></i>';
+                btn.style.color = '#10b981';
+                if (window.lucide) window.lucide.createIcons();
+                contactForm.reset();
+                if (budgetValue) budgetValue.textContent = 'Current: ₹20,000';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.color = '';
+                    if (window.lucide) window.lucide.createIcons();
+                }, 3000);
+                return;
+            }
+
+            // Rate Limit protection check
+            if (isRateLimited('contact')) {
+                const timeRemaining = getCooldownTimeRemaining('contact');
+                const mins = Math.ceil(timeRemaining / 60);
+                btn.innerHTML = `Too many requests. Wait ${mins}m! <i data-lucide="x"></i>`;
+                btn.style.color = '#ef4444';
+                if (window.lucide) window.lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.color = '';
+                    if (window.lucide) window.lucide.createIcons();
+                }, 3000);
+                return;
+            }
+
+            const name = sanitizeInput(document.getElementById('name').value);
+            const phone = sanitizeInput(document.getElementById('phone').value);
+            const email = sanitizeInput(document.getElementById('email').value);
+            const interest = sanitizeInput(document.getElementById('interest').value);
             const budget = budgetRange ? budgetRange.value : '20000';
-            const message = document.getElementById('message').value;
+            const message = sanitizeInput(document.getElementById('message').value);
 
             // Show loading
             btn.innerHTML = 'Sending Secure Request... <i data-lucide="loader" class="spin"></i>';
@@ -704,10 +814,42 @@ document.addEventListener('DOMContentLoaded', () => {
     if (callbackForm) {
         callbackForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const phone = document.getElementById('callback-phone').value;
+            const phoneVal = document.getElementById('callback-phone').value;
             const btn = callbackForm.querySelector('button');
             const orig = btn.innerText;
 
+            // Honeypot bot protection check
+            const honeypot = document.getElementById('callback-honeypot') ? document.getElementById('callback-honeypot').value : '';
+            if (honeypot.trim() !== '') {
+                console.warn("Spam bot detected and blocked silently.");
+                if (callbackSuccess) {
+                    callbackSuccess.textContent = "Callback requested! Rithish V will call you in under 10 minutes.";
+                    callbackSuccess.style.color = "#10b981";
+                    callbackSuccess.style.display = "block";
+                }
+                callbackForm.reset();
+                setTimeout(() => {
+                    if (callbackSuccess) callbackSuccess.style.display = "none";
+                }, 4000);
+                return;
+            }
+
+            // Rate Limit protection check
+            if (isRateLimited('callback')) {
+                const timeRemaining = getCooldownTimeRemaining('callback');
+                const mins = Math.ceil(timeRemaining / 60);
+                if (callbackSuccess) {
+                    callbackSuccess.textContent = `Too many requests. Please wait ${mins}m.`;
+                    callbackSuccess.style.color = "#ef4444";
+                    callbackSuccess.style.display = "block";
+                }
+                setTimeout(() => {
+                    if (callbackSuccess) callbackSuccess.style.display = "none";
+                }, 4000);
+                return;
+            }
+
+            const phone = sanitizeInput(phoneVal);
             btn.innerText = "Requesting...";
 
             try {
@@ -948,6 +1090,44 @@ document.addEventListener('DOMContentLoaded', () => {
             const emailInput = document.getElementById('newsletter-email');
             const msgEl = document.querySelector('.subscribe-msg');
 
+            // Honeypot bot protection check
+            const honeypot = document.getElementById('newsletter-honeypot') ? document.getElementById('newsletter-honeypot').value : '';
+            if (honeypot.trim() !== '') {
+                console.warn("Spam bot detected and blocked silently.");
+                if (msgEl) {
+                    msgEl.textContent = 'Thanks for subscribing! Check your inbox for tech updates.';
+                    msgEl.style.color = '#10b981';
+                    msgEl.style.display = 'block';
+                }
+                emailInput.value = '';
+                btn.innerHTML = 'Subscribed! <i data-lucide="check"></i>';
+                if (window.lucide) window.lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 3000);
+                return;
+            }
+
+            // Rate Limit protection check
+            if (isRateLimited('newsletter')) {
+                const timeRemaining = getCooldownTimeRemaining('newsletter');
+                const mins = Math.ceil(timeRemaining / 60);
+                if (msgEl) {
+                    msgEl.textContent = `Too many requests. Wait ${mins}m.`;
+                    msgEl.style.color = '#ef4444';
+                    msgEl.style.display = 'block';
+                }
+                btn.innerHTML = 'Error <i data-lucide="x"></i>';
+                if (window.lucide) window.lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    if (msgEl) msgEl.style.display = 'none';
+                }, 3000);
+                return;
+            }
+
+            const email = sanitizeInput(emailInput.value);
+
             // Show loading
             btn.innerHTML = 'Subscribing... <i data-lucide="loader" class="spin"></i>';
             if (window.lucide) {
@@ -958,7 +1138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Save subscriber to Firebase
                 const subsRef = database.ref('subscribers');
                 await subsRef.push({
-                    email: emailInput.value,
+                    email: email,
                     timestamp: new Date().toISOString()
                 });
 
@@ -1016,5 +1196,21 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
         }
     });
+
+    // Active anti-debugger loop to freeze inspector
+    setInterval(function() {
+        try {
+            (function debuggerProtection(i) {
+                if (('' + i / i).length !== 1 || i % 20 === 0) {
+                    (function() {}
+                    .constructor('debugger')());
+                } else {
+                    (function() {}
+                    .constructor('debugger')());
+                }
+                debuggerProtection(++i);
+            })(0);
+        } catch (e) {}
+    }, 100);
 
 });

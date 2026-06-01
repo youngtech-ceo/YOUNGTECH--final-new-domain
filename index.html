@@ -153,7 +153,7 @@
             </div>
 
             <div class="container">
-                <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; text-align: left;">
+            <div class="hero-grid">
                     <!-- Left Hero Content Column -->
                     <div style="position: relative; z-index: 5;">
                         <div class="badge" style="margin-bottom: 1.5rem; border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary);">
@@ -288,7 +288,7 @@
                 </div>
 
                 <!-- Storytelling section (Mission, Vision, Culture) -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 6rem;">
+                <div class="about-grid-three-col">
                     <!-- Mission -->
                     <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; box-shadow: 0 4px 15px var(--glass-shadow);">
                         <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(99, 102, 241, 0.15); display: flex; align-items: center; justify-content: center; color: var(--primary); margin-bottom: 1.5rem;">
@@ -1238,6 +1238,9 @@
                             <h4 style="font-size:1.15rem; font-weight:700; color:var(--text-main); margin-bottom: 0.5rem;"><i data-lucide="phone-call"></i> Instant Callbacks</h4>
                             <p style="font-size: 0.88rem; color:var(--text-muted);">Enter your contact number and our founder will call you back in under 10 minutes.</p>
                             <form id="callback-form" class="callback-form-row">
+                                <div style="display:none; visibility:hidden;" aria-hidden="true">
+                                    <input type="text" id="callback-honeypot" autocomplete="off" tabindex="-1">
+                                </div>
                                 <input type="tel" id="callback-phone" placeholder="Your Phone Number" required style="font-size: 0.9rem;">
                                 <button type="submit" style="font-size: 0.9rem; padding: 0 1.2rem; cursor:pointer;">Request Call</button>
                             </form>
@@ -1247,6 +1250,9 @@
 
                     <!-- Right: Contact Form with Slider -->
                     <form class="contact-form" style="width: 100%;">
+                        <div style="display:none; visibility:hidden;" aria-hidden="true">
+                            <input type="text" id="contact-honeypot" autocomplete="off" tabindex="-1">
+                        </div>
                         <div class="form-group">
                             <label for="name" style="font-weight: 600; color: var(--text-main);">Full Name</label>
                             <input type="text" id="name" required placeholder="e.g. John Doe" style="background: var(--input-bg); border-color: var(--input-border);">
@@ -1302,6 +1308,9 @@
                     <h2 class="section-title" style="font-size: 2rem;">Get Exclusive <span class="gradient-text">Tech Strategy</span></h2>
                     <p class="section-desc" style="margin-bottom: 2rem; font-size: 0.95rem;">Join 200+ scaling founders receiving premium AI, cloud, & IoT strategies directly from our founder.</p>
                     <form class="newsletter-form" id="newsletter-form" style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+                        <div style="display:none; visibility:hidden;" aria-hidden="true">
+                            <input type="text" id="newsletter-honeypot" autocomplete="off" tabindex="-1">
+                        </div>
                         <input type="email" id="newsletter-email" placeholder="Enter business email" required style="flex:1; min-width:200px; padding: 1rem 1.2rem; border-radius: 50px; border: 1px solid var(--input-border); background: var(--input-bg); color: var(--text-main); outline: none;">
                         <button type="submit" class="btn-primary" id="newsletter-btn" style="cursor: pointer;">Subscribe Newsletter <i data-lucide="arrow-right"></i></button>
                     </form>
@@ -1357,6 +1366,9 @@
 
             <!-- Book Confirm Form -->
             <form id="calendar-booking-form" style="margin-top:1.5rem; display:flex; flex-direction:column; gap:0.8rem; text-align:left;">
+                <div style="display:none; visibility:hidden;" aria-hidden="true">
+                    <input type="text" id="calendar-honeypot" autocomplete="off" tabindex="-1">
+                </div>
                 <input type="hidden" id="selected-date-val">
                 <input type="hidden" id="selected-time-val" value="10:00 AM">
                 
