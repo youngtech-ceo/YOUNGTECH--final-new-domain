@@ -137,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const subscribersRef = database.ref('subscribers');
         const callbacksRef = database.ref('callbacks');
         const bookingsRef = database.ref('bookings');
+        const ordersRef = database.ref('orders');
 
         // DOM Elements
         const messagesBody = document.getElementById('messages-body');
@@ -144,6 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const callbacksBody = document.getElementById('callbacks-body');
         const bookingsBody = document.getElementById('bookings-body');
         const emailAllBtn = document.getElementById('email-all-btn');
+        const ordersBody = document.getElementById('orders-body');
+        const orderFormContainer = document.getElementById('order-form-container');
+        const orderForm = document.getElementById('order-form');
+        const addOrderBtn = document.getElementById('add-order-btn');
+        const cancelOrderBtn = document.getElementById('cancel-order-btn');
 
         // Load Messages
         messagesRef.on('value', (snapshot) => {
@@ -440,6 +446,232 @@ document.addEventListener('DOMContentLoaded', () => {
         }, (error) => {
             projectsBody.innerHTML = `<tr><td colspan="4" style="color:#ef4444; font-weight:bold; padding: 2rem;">Firebase Error: ${error.message}</td></tr>`;
             console.error("Firebase Projects Error:", error);
+        });
+
+        // Helper to generate unique Order ID
+        function generateOrderId() {
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let result = 'YT-';
+            for (let i = 0; i < 6; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // --- Project Tracking Orders CRUD Logic ---
+        if (addOrderBtn) {
+            addOrderBtn.addEventListener('click', () => {
+                orderForm.reset();
+                document.getElementById('order-db-id').value = '';
+                document.getElementById('order-progress-label').innerText = '50';
+                document.getElementById('order-form-title').innerText = 'Add New Tracking Order';
+                orderFormContainer.style.display = 'block';
+            });
+        }
+
+        if (cancelOrderBtn) {
+            cancelOrderBtn.addEventListener('click', () => {
+                orderFormContainer.style.display = 'none';
+                orderForm.reset();
+            });
+        }
+
+        if (orderForm) {
+            orderForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const dbId = document.getElementById('order-db-id').value;
+                
+                const customerName = document.getElementById('order-customer-name').value.trim();
+                const customerEmail = document.getElementById('order-customer-email').value.trim();
+                const customerMobile = document.getElementById('order-customer-mobile').value.trim();
+                const projectName = document.getElementById('order-project-name').value.trim();
+                const projectType = document.getElementById('order-project-type').value;
+                const milestoneStage = parseInt(document.getElementById('order-milestone-stage').value);
+                const startDate = document.getElementById('order-start-date').value;
+                const targetDate = document.getElementById('order-target-date').value;
+                const progressPercent = parseInt(document.getElementById('order-progress-percent').value);
+                const updateDesc = document.getElementById('order-update-desc').value.trim();
+                
+                let orderId = '';
+                
+                if (dbId) {
+                    try {
+                        const snap = await ordersRef.child(dbId).once('value');
+                        if (snap.exists()) {
+                            orderId = snap.val().orderId;
+                        }
+                    } catch (err) {
+                        console.error("Error reading order ID:", err);
+                    }
+                }
+                
+                if (!orderId) {
+                    let isUnique = false;
+                    let attempts = 0;
+                    while (!isUnique && attempts < 10) {
+                        orderId = generateOrderId();
+                        try {
+                            const snap = await ordersRef.orderByChild('orderId').equalTo(orderId).once('value');
+                            if (!snap.exists()) {
+                                isUnique = true;
+                            }
+                        } catch (err) {
+                            isUnique = true;
+                        }
+                        attempts++;
+                    }
+                }
+                
+                const orderData = {
+                    orderId: orderId,
+                    customerName: customerName,
+                    customerEmail: customerEmail,
+                    customerMobile: customerMobile,
+                    projectName: projectName,
+                    projectType: projectType,
+                    milestoneStage: milestoneStage,
+                    startDate: startDate,
+                    targetDate: targetDate,
+                    progressPercent: progressPercent,
+                    updateDesc: updateDesc,
+                    lastUpdated: Date.now()
+                };
+
+                try {
+                    if (dbId) {
+                        await ordersRef.child(dbId).update(orderData);
+                        alert(`Order updated successfully!`);
+                    } else {
+                        const newRef = ordersRef.push();
+                        await newRef.set(orderData);
+                        alert(`New Order Created!\nOrder ID: ${orderId}\nGive this ID to the customer to track their project.`);
+                    }
+                    orderFormContainer.style.display = 'none';
+                    orderForm.reset();
+                } catch (err) {
+                    console.error("Firebase Error saving order:", err);
+                    alert("Error saving order: " + err.message);
+                }
+            });
+        }
+
+        ordersRef.on('value', (snapshot) => {
+            if (!ordersBody) return;
+            ordersBody.innerHTML = '';
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                let htmlStr = '';
+                Object.keys(data).reverse().forEach(key => {
+                    const order = data[key];
+                    if (!order) return;
+                    
+                    let typeLabel = 'Web Dev';
+                    let typeBadgeClass = 'rgba(99, 102, 241, 0.15)';
+                    let typeColor = 'var(--primary)';
+                    if (order.projectType === 'app') {
+                        typeLabel = 'Mobile App';
+                        typeBadgeClass = 'rgba(168, 85, 247, 0.15)';
+                        typeColor = 'var(--secondary)';
+                    } else if (order.projectType === 'realtime') {
+                        typeLabel = 'Realtime IoT';
+                        typeBadgeClass = 'rgba(6, 182, 212, 0.15)';
+                        typeColor = 'var(--accent)';
+                    }
+
+                    const milestoneLabels = {
+                        1: "1. Requirement & Design",
+                        2: "2. Frontend/Hardware Prototype",
+                        3: "3. Core Development",
+                        4: "4. Quality Testing",
+                        5: "5. Ready for Deployment",
+                        6: "6. Completed & Handover"
+                    };
+                    const milestoneText = milestoneLabels[order.milestoneStage] || '1. Requirements & Design';
+
+                    htmlStr += `
+                        <tr>
+                            <td>
+                                <strong style="color: var(--primary); font-size: 1.1rem; font-family: var(--font-heading);">${order.orderId}</strong>
+                            </td>
+                            <td>
+                                <strong style="color: var(--text-main);">${order.customerName}</strong><br>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">${order.customerEmail}</span><br>
+                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">${order.customerMobile}</span>
+                            </td>
+                            <td>
+                                <strong style="color: var(--text-main);">${order.projectName}</strong><br>
+                                <span style="background:${typeBadgeClass}; color:${typeColor}; font-size:0.75rem; font-weight:700; padding:0.15rem 0.4rem; border-radius:4px; display:inline-block; margin-top:0.25rem;">${typeLabel}</span>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.88rem; font-weight: 600; color: var(--text-main);">${milestoneText}</span><br>
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem;">
+                                    <div style="flex: 1; min-width: 100px; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden;">
+                                        <div style="width: ${order.progressPercent}%; height: 100%; background: linear-gradient(90deg, var(--primary), var(--secondary));"></div>
+                                    </div>
+                                    <span style="font-size: 0.8rem; font-weight: 700; color: #10b981;">${order.progressPercent}%</span>
+                                </div>
+                                <span style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-top: 0.25rem; font-style: italic;">Update: "${order.updateDesc.substring(0, 45)}${order.updateDesc.length > 45 ? '...' : ''}"</span>
+                            </td>
+                            <td>
+                                <button class="edit-order btn-primary" data-id="${key}" style="padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.8rem; margin-right: 0.5rem; cursor:pointer; background: var(--primary); border:none;"
+                                    data-orderid="${order.orderId}"
+                                    data-name="${order.customerName}" 
+                                    data-email="${order.customerEmail}" 
+                                    data-mobile="${order.customerMobile}" 
+                                    data-project="${order.projectName}" 
+                                    data-type="${order.projectType}" 
+                                    data-milestone="${order.milestoneStage}" 
+                                    data-start="${order.startDate}" 
+                                    data-target="${order.targetDate}" 
+                                    data-progress="${order.progressPercent}" 
+                                    data-desc="${order.updateDesc}">Edit</button>
+                                <button class="btn-danger delete-order" data-id="${key}">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                ordersBody.innerHTML = htmlStr;
+
+                // Bind Edit Order Click Events
+                document.querySelectorAll('.edit-order').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.getAttribute('data-id');
+                        document.getElementById('order-db-id').value = id;
+                        document.getElementById('order-customer-name').value = e.target.getAttribute('data-name');
+                        document.getElementById('order-customer-email').value = e.target.getAttribute('data-email');
+                        document.getElementById('order-customer-mobile').value = e.target.getAttribute('data-mobile');
+                        document.getElementById('order-project-name').value = e.target.getAttribute('data-project');
+                        document.getElementById('order-project-type').value = e.target.getAttribute('data-type');
+                        document.getElementById('order-milestone-stage').value = e.target.getAttribute('data-milestone');
+                        document.getElementById('order-start-date').value = e.target.getAttribute('data-start');
+                        document.getElementById('order-target-date').value = e.target.getAttribute('data-target');
+                        
+                        const progress = e.target.getAttribute('data-progress');
+                        document.getElementById('order-progress-percent').value = progress;
+                        document.getElementById('order-progress-label').innerText = progress;
+                        
+                        document.getElementById('order-update-desc').value = e.target.getAttribute('data-desc');
+                        
+                        document.getElementById('order-form-title').innerText = 'Edit Tracking Order';
+                        orderFormContainer.style.display = 'block';
+                        document.getElementById('orders').scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+
+                // Bind Delete Order Click Events
+                document.querySelectorAll('.delete-order').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if(confirm('Are you absolutely sure you want to delete this project tracking order?')) {
+                            ordersRef.child(e.target.getAttribute('data-id')).remove();
+                        }
+                    });
+                });
+            } else {
+                ordersBody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem;">No tracking orders found. Click "Add Order" to create one.</td></tr>';
+            }
+        }, (error) => {
+            ordersBody.innerHTML = `<tr><td colspan="5" style="color:#ef4444; font-weight:bold; padding: 2rem;">Firebase Error: ${error.message}</td></tr>`;
+            console.error("Firebase Orders Error:", error);
         });
 
         // --- Admin Navigation Tabs Logic ---

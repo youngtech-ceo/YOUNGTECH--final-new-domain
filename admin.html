@@ -120,6 +120,7 @@
             <a href="#callbacks"><i data-lucide="phone-call"></i> Callbacks</a>
             <a href="#bookings"><i data-lucide="calendar"></i> Bookings</a>
             <a href="#projects"><i data-lucide="briefcase"></i> Projects</a>
+            <a href="#orders"><i data-lucide="package"></i> Track Orders</a>
             <a href="#subscribers"><i data-lucide="users"></i> Subscribers</a>
             
             <div style="margin-top: 5rem; text-align: center;">
@@ -291,6 +292,105 @@
                         </thead>
                         <tbody id="projects-body">
                             <tr><td colspan="4">Loading projects...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Project Tracking Orders Section -->
+            <section id="orders" class="admin-card" style="display:none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Project Tracking Orders</h2>
+                    <button id="add-order-btn" class="btn-primary" style="padding: 0.5rem 1rem; border-radius: 8px;">
+                        <i data-lucide="plus"></i> Add Order
+                    </button>
+                </div>
+                
+                <!-- Add/Edit Order Form -->
+                <div id="order-form-container" style="display: none; background: rgba(0,0,0,0.02); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                    <h3 id="order-form-title" style="margin-bottom: 1rem;">Add New Tracking Order</h3>
+                    <form id="order-form">
+                        <input type="hidden" id="order-db-id">
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Customer Name</label>
+                                <input type="text" id="order-customer-name" required placeholder="e.g. John Doe" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Customer Email</label>
+                                <input type="email" id="order-customer-email" required placeholder="e.g. john@example.com" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Customer Mobile No.</label>
+                                <input type="tel" id="order-customer-mobile" required placeholder="e.g. 9876543210" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Project Name</label>
+                                <input type="text" id="order-project-name" required placeholder="e.g. Custom E-Commerce" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Project Type</label>
+                                <select id="order-project-type" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: #fff;">
+                                    <option value="" disabled selected>Select Project Type</option>
+                                    <option value="web">Web Development</option>
+                                    <option value="app">Mobile App Development</option>
+                                    <option value="realtime">Realtime Developments / IoT</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Current Milestone Stage</label>
+                                <select id="order-milestone-stage" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: #fff;">
+                                    <option value="1">1. Requirement Analysis & Design</option>
+                                    <option value="2">2. Frontend/Hardware Prototype</option>
+                                    <option value="3">3. Core Development</option>
+                                    <option value="4">4. Quality Assurance & Testing</option>
+                                    <option value="5">5. Ready for Deployment</option>
+                                    <option value="6">6. Completed & Handed Over</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Start Date</label>
+                                <input type="date" id="order-start-date" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Expected Handover Date</label>
+                                <input type="date" id="order-target-date" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label style="font-weight: 600; font-size: 0.9rem;">Overall Progress: <span id="order-progress-label">50</span>%</label>
+                            <input type="range" id="order-progress-percent" min="0" max="100" value="50" style="width: 100%; margin-top: 0.5rem;" oninput="document.getElementById('order-progress-label').innerText = this.value">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="font-weight: 600; font-size: 0.9rem;">Latest Update Notes</label>
+                            <textarea id="order-update-desc" rows="3" required placeholder="e.g. Design assets finalized. Commencing component implementation..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.2rem; border-radius: 8px; border:none; cursor:pointer;">Save Order</button>
+                            <button type="button" id="cancel-order-btn" class="btn-outline" style="padding: 0.6rem 1.2rem; border-radius: 8px; cursor:pointer;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Client Info</th>
+                                <th>Project Info</th>
+                                <th>Milestone & Progress</th>
+                                <th style="min-width: 150px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-body">
+                            <tr><td colspan="5">Loading tracking orders...</td></tr>
                         </tbody>
                     </table>
                 </div>

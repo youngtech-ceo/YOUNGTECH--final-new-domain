@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Metadata -->
+    <title>Track Your Project | Young Tech</title>
+    <meta name="description" content="Track your custom web, mobile app, or IoT real-time development progress in real-time with your unique Young Tech Order ID.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .track-hero {
+            min-height: 100vh;
+            padding-top: 140px;
+            padding-bottom: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .track-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* Search Card Styling */
+        .search-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px var(--glass-shadow);
+            transition: var(--transition);
+        }
+
+        .search-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 25px 60px rgba(99, 102, 241, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-field {
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .input-field:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+
+
+        /* Dashboard Result Styling */
+        .dashboard-card {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px var(--glass-shadow);
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .project-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .badge-web {
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            color: #818cf8;
+        }
+
+        .badge-app {
+            background: rgba(168, 85, 247, 0.12);
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            color: #c084fc;
+        }
+
+        .badge-realtime {
+            background: rgba(6, 182, 212, 0.12);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: #22d3ee;
+        }
+
+        /* Milestone Steps Timeline */
+        .milestone-timeline {
+            position: relative;
+            margin: 3rem 0;
+            padding-left: 2.5rem;
+            text-align: left;
+        }
+
+        .milestone-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0.5rem;
+            bottom: 0.5rem;
+            left: 0.75rem;
+            width: 2px;
+            background: var(--border-color);
+            z-index: 1;
+        }
+
+        .milestone-step {
+            position: relative;
+            padding-bottom: 2.5rem;
+            transition: var(--transition);
+        }
+
+        .milestone-step:last-child {
+            padding-bottom: 0;
+        }
+
+        .milestone-icon {
+            position: absolute;
+            left: -2.5rem;
+            top: 0.25rem;
+            width: 1.6rem;
+            height: 1.6rem;
+            border-radius: 50%;
+            background: var(--bg-alt);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .milestone-step.completed .milestone-icon {
+            background: #10b981;
+            border-color: #10b981;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .milestone-step.active .milestone-icon {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-glow);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        .milestone-info h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            transition: var(--transition);
+        }
+
+        .milestone-step.completed .milestone-info h4 {
+            color: #10b981;
+        }
+
+        .milestone-step.active .milestone-info h4 {
+            color: var(--text-main);
+        }
+
+        .milestone-info p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Progress Bar (Overall) */
+        .progress-visualizer {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .bar-container {
+            width: 100%;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 50px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shimmer-bar 2s infinite linear;
+        }
+
+        /* Glassmorphic Dev Log Card */
+        .dev-log {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dev-log::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 5px var(--primary-glow); }
+            100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.6); }
+        }
+
+        @keyframes shimmer-bar {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .details-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.2rem;
+        }
+
+        @media(max-width: 600px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            .search-card, .dashboard-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (Matches index.html) -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 0.8rem;">
+                <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Tech Logo" border="0" style="height: 40px; width: auto; border-radius: 8px;">
+                <span class="logo-accent" style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-heading); color: var(--text-main);">YOUNG TECH</span>
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="track.html" class="nav-link active">Track Project</a></li>
+                <li><button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme"><i data-lucide="sun"></i></button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="track-hero">
+        <div id="hero-particles" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;"></div>
+        <div class="hero-bg-elements">
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+        </div>
+
+        <div class="container track-container">
+            <!-- Search Form Card -->
+            <div class="search-card" id="search-card">
+                <div class="badge" style="border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary); margin-bottom: 1.5rem;">
+                    <i data-lucide="compass" style="width: 14px; height: 14px; display: inline; vertical-align: middle; margin-right: 0.3rem;"></i>
+                    SECURE TRACKER SYSTEM
+                </div>
+                <h1 style="font-family: var(--font-heading); font-size: 2.2rem; font-weight: 800; margin-bottom: 0.5rem;">Track Your Project</h1>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">Enter your Order ID and mobile number to view your development progress.</p>
+                
+                <form id="track-form">
+                    <div class="input-group">
+                        <label for="track-order-id">Order ID</label>
+                        <input type="text" id="track-order-id" class="input-field" placeholder="e.g. YT-4A9B3C" required autocomplete="off">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 2rem;">
+                        <label for="track-mobile">Customer Mobile No.</label>
+                        <input type="tel" id="track-mobile" class="input-field" placeholder="e.g. 9876543210" required autocomplete="off">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full" id="btn-track-submit" style="padding:1.1rem; justify-content:center; cursor: pointer;">
+                        Find Project State <i data-lucide="arrow-right"></i>
+                    </button>
+                </form>
+                <p id="track-error-msg" style="display: none; margin-top: 1.5rem; color: #ef4444; font-size: 0.95rem; font-weight: 600; text-align: center;"></p>
+            </div>
+
+            <!-- Project Progress Dashboard Card -->
+            <div class="dashboard-card" id="dashboard-card">
+                <div class="dashboard-header">
+                    <div style="text-align: left;">
+                        <span id="project-type-badge" class="project-badge">Web Application</span>
+                        <h2 id="display-project-name" style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); margin-top: 0.5rem;">Custom Web Platform</h2>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">Client: <span id="display-client-name" style="font-weight: 600; color: var(--text-main);">-</span> | Order ID: <span id="display-order-id" style="font-weight: 700; color: var(--primary);">-</span></p>
+                    </div>
+                    <button class="btn-secondary" id="btn-back-to-search" style="padding: 0.6rem 1.2rem; border-radius: 50px; font-size: 0.9rem; cursor: pointer;">
+                        <i data-lucide="arrow-left"></i> Track Another
+                    </button>
+                </div>
+
+                <!-- Progress Visualizer -->
+                <div class="progress-visualizer">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 style="font-size: 1.15rem; font-weight: 700;">Overall Progress</h3>
+                        <span id="display-progress-percent" style="font-size: 1.8rem; font-weight: 800; color: #10b981;">0%</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill" id="bar-fill"></div>
+                    </div>
+                </div>
+
+                <!-- Development Log -->
+                <div class="dev-log">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; flex-wrap: wrap;">
+                        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main); text-align: left;">Latest Developer Update</h3>
+                        <span id="display-last-updated" style="font-size: 0.82rem; color: var(--text-muted); font-weight: 500;">-</span>
+                    </div>
+                    <p id="display-update-notes" style="color: var(--text-muted); font-size: 1rem; line-height: 1.7; text-align: left;">No updates logged yet.</p>
+                </div>
+
+                <!-- Milestone Steps Timeline -->
+                <h3 style="font-size: 1.25rem; font-weight: 800; text-align: left; margin-bottom: 1.5rem;">Milestone Timeline</h3>
+                <div class="milestone-timeline">
+                    <!-- Step 1 -->
+                    <div class="milestone-step" id="step-1">
+                        <div class="milestone-icon"><i data-lucide="file-text" style="width: 14px; height: 14px;"></i></div>
+                        <div class="milestone-info">
+                            <h4>Requirement Analysis & Design</h4>
+                            <p>Finalizing system architecture, database structure, and UI wireframes.</p>
+                        </div>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="milestone-step" id="step-2">
+                        <div class="milestone-icon"><i data-lucide="layout" style="width: 14px; height: 14px;"></i></div>
+                        <div class="milestone-info">
+                            <h4>Frontend/Hardware Prototype</h4>
+                            <p>Creating interactive layouts, components, or prototype circuits validation.</p>
+                        </div>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="milestone-step" id="step-3">
+                        <div class="milestone-icon"><i data-lucide="code" style="width: 14px; height: 14px;"></i></div>
+                        <div class="milestone-info">
+                            <h4>Core Development</h4>
+                            <p>Writing full stack code, API integrations, and linking storage systems.</p>
+                        </div>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="milestone-step" id="step-4">
+                        <div class="milestone-icon"><i data-lucide="check-square" style="width: 14px; height: 14px;"></i></div>
+                        <div class="milestone-info">
+                            <h4>Quality Assurance & Testing</h4>
+                            <p>Validating features, speed optimizations, security audits, and bug fixing loops.</p>
+                        </div>
+                    </div>
+                    <!-- Step 5 -->
+                    <div class="milestone-step" id="step-5">
+                        <div class="milestone-icon"><i data-lucide="cloud-lightning" style="width: 14px; height: 14px;"></i></div>
+                        <div class="milestone-info">
+                            <h4>Ready for Deployment</h4>
+                            <p>Configuring live cloud servers, DNS mappings, and packaging final systems.</p>
+                        </div>
+                    </div>
+                    <!-- Step 6 -->
+                    <div class="milestone-step" id="step-6">
+                        <div class="milestone-icon"><i data-lucide="award" style="width: 14px; height: 14px;"></i></div>
+                        <div class="milestone-info">
+                            <h4>Completed & Handed Over</h4>
+                            <p>Providing direct source codes, documentation files, and starting SLA support loops.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details Grid -->
+                <div class="details-grid" style="margin-top: 3rem;">
+                    <div class="details-box">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Start Date</div>
+                        <div id="display-start-date" style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">-</div>
+                    </div>
+                    <div class="details-box">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Expected Handover</div>
+                        <div id="display-target-date" style="font-size: 1.1rem; font-weight: 700; color: var(--primary);">-</div>
+                    </div>
+                </div>
+
+                <!-- Support link -->
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://wa.me/918012676122?text=Hello%20Young%20Tech!%20I'm%20tracking%20my%20order%20and%20had%20a%20question." target="_blank" class="btn-primary" style="padding: 0.9rem 1.8rem; font-size: 0.95rem; cursor: pointer;">
+                        <i data-lucide="phone"></i> Contact Support WhatsApp
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Premium Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <p>&copy; 2026 Young Tech. All rights reserved. Preserving brand identity with AI performance.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Compat SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script src="track.js"></script>
+</body>
+</html>
