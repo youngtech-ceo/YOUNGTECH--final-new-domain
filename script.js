@@ -1193,3 +1193,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+/**
+ * Young Techs - Lighthouse Score Optimization Script
+ * Resolves Accessibility, SEO, and Interactive DOM warnings.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    try {
+        // 1. FORM ACCESSIBILITY: Associate a native aria-label with the budget range input
+        const budgetRange = document.getElementById("budget-range");
+        if (budgetRange) {
+            budgetRange.setAttribute("aria-label", "Project budget range slider in Indian Rupees");
+        }
+
+        // 2. ARIA PROHIBITED ATTRIBUTES: Fix invalid aria-label on the pricing switch container
+        const pricingSwitch = document.getElementById("pricing-switch");
+        if (pricingSwitch) {
+            // A 'div' wrapper cannot have an aria-label unless it has an interactive role.
+            // We convert it semantically into a functional region for screen readers.
+            pricingSwitch.setAttribute("role", "region");
+            pricingSwitch.setAttribute("aria-live", "polite");
+            pricingSwitch.removeAttribute("aria-label");
+        }
+
+        // 3. SEO & IDENTICAL LINKS: Inject distinct, descriptive context into generic "Learn More" anchors
+        const serviceLinks = document.querySelectorAll("a.btn-learn-more");
+        serviceLinks.forEach(link => {
+            const href = link.getAttribute("href") || "";
+            if (href.includes("web-development")) {
+                link.setAttribute("aria-label", "Learn more about custom Web Development solutions");
+            } else if (href.includes("mobile-app-development")) {
+                link.setAttribute("aria-label", "Learn more about cross-platform Mobile App Development");
+            }
+        });
+
+        // 4. EMPTY HEADINGS BEST PRACTICE: Provide fallback structural text for the dynamic project modal
+        const modalTitle = document.getElementById("modal-title");
+        if (modalTitle && !modalTitle.innerText.trim()) {
+            modalTitle.innerText = "Project Technical Specifications";
+        }
+    } catch (error) {
+        console.error("Lighthouse Optimization Script Error:", error);
+    }
+});
