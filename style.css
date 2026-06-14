@@ -2457,3 +2457,65 @@ h1, h2, h3, h4, .logo {
     }
 }
 
+/* ==========================================
+   MINIMALIST REDESIGN INTERACTIVE LAYOUTS
+   ========================================== */
+.about-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.about-tab-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.about-tab-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.about-tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.about-tab-content {
+    display: none;
+    animation: fadeInTab 0.5s ease forwards;
+}
+
+.about-tab-content.active {
+    display: block;
+}
+
+.service-tech-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

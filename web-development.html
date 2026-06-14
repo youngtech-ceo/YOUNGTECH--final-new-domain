@@ -32,6 +32,83 @@
       "description": "Custom Next.js, React, and Node.js web applications engineered for sub-second page speeds and high conversions."
     }
     </script>
+
+    <style>
+        .spec-tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition);
+        }
+        .spec-tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+        .spec-tab-btn:hover:not(.active) {
+            border-color: var(--primary);
+            color: var(--text-main);
+            transform: translateY(-2px);
+        }
+        
+        .lighthouse-gauge {
+            transition: var(--transition);
+        }
+        .lighthouse-gauge:hover {
+            transform: translateY(-5px);
+        }
+        .lighthouse-gauge.active div {
+            transform: scale(1.08);
+            box-shadow: 0 0 25px var(--primary-glow) !important;
+        }
+
+        .tag-badge {
+            background: var(--badge-bg);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Budget Estimator Custom input styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 5px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--primary-glow);
+            transition: var(--transition);
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .calc-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navbar -->
@@ -59,37 +136,491 @@
                     Premium <span class="gradient-text">Web Application</span> Development
                 </h1>
                 <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem;">
-                    We build lightning-fast web solutions using Next.js and React, specifically optimized to achieve 100/100 Core Web Vitals and drive exponential revenue.
+                    We engineer high-performance web systems utilizing Next.js, React, and customized backend database layers. Every site is custom-tailored to rank on Google search and scale seamlessly.
                 </p>
                 <div style="display: flex; justify-content: center; gap: 1rem;">
-                    <a href="index.html#contact" class="btn-primary">Request Development Blueprint <i data-lucide="arrow-right"></i></a>
+                    <a href="index.html#contact" class="btn-primary">Request Custom Web Blueprint <i data-lucide="arrow-right"></i></a>
                 </div>
             </div>
         </section>
 
-        <!-- Features grid -->
+        <!-- Features Grid -->
         <section class="section alt-bg" style="padding: 80px 0;">
             <div class="container">
                 <div class="section-header text-center">
                     <h2 class="section-title">Our Web Engineering <span class="gradient-text">Guarantees</span></h2>
-                    <p class="section-desc">Every line of code is written to eliminate latency and rank highly on search layouts.</p>
+                    <p class="section-desc">We combine raw execution speed, modern security, and interactive styling into high-conversion business assets.</p>
                 </div>
 
                 <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
                     <div class="service-card">
                         <div class="service-icon-wrapper"><i data-lucide="zap" class="service-icon"></i></div>
-                        <h3>Sub-Second Speeds</h3>
-                        <p>Server-side rendering (SSR) and advanced caching guarantees instant page paints under 1.2s, drastically improving retention.</p>
+                        <h3>Sub-Second Speed</h3>
+                        <p>Leveraging Server-Side Rendering (SSR) and Incremental Static Regeneration (ISR) to secure page paint times under 1.2 seconds.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon-wrapper"><i data-lucide="search" class="service-icon"></i></div>
-                        <h3>SEO Schema Architecture</h3>
-                        <p>We inject structured JSON-LD local schemas, FAQ data, and semantic tag hierarchies to ensure high local listing dominance.</p>
+                        <h3>SEO Schema Engineering</h3>
+                        <p>Structured JSON-LD schema layouts, semantic tag compliance, and clean HTML5 elements to boost local and global rankings.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon-wrapper"><i data-lucide="shield-check" class="service-icon"></i></div>
-                        <h3>Distributed Database Clusters</h3>
-                        <p>Configure auto-scaling server environments with AWS or Firebase database clusters to handle infinite user surges.</p>
+                        <h3>Distributed Databases</h3>
+                        <p>Fully managed PostgreSQL, MongoDB, or Firebase databases built to handle high transactional traffic with zero performance drops.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="lock" class="service-icon"></i></div>
+                        <h3>Secure API Gateways</h3>
+                        <p>Advanced security defenses including CORS protection, client-side input sanitization, rate limit control, and JWT authentication.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Service Specializations (Interactive Tabs) -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Core Service <span class="gradient-text">Specializations</span></h2>
+                    <p class="section-desc">Explore our custom web specializations tailored for your exact commercial goals.</p>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="specs-tabs" style="display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                    <button class="spec-tab-btn active" data-tab="saas">SaaS & Custom Platforms</button>
+                    <button class="spec-tab-btn" data-tab="ecommerce">Custom E-Commerce</button>
+                    <button class="spec-tab-btn" data-tab="brand">Corporate Portals</button>
+                    <button class="spec-tab-btn" data-tab="enterprise">Enterprise Apps</button>
+                </div>
+
+                <!-- Tab Panels -->
+                <div class="tab-panels-container" style="min-height: 280px;">
+                    <!-- SaaS Content -->
+                    <div id="spec-tab-saas" class="spec-tab-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; text-align: left; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <div>
+                            <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 1rem; font-weight: 700;">Multi-Tenant SaaS Solutions</h3>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">We build robust, subscription-driven software platforms featuring advanced authentication rules, tiered subscription logic, and interactive user billing pipelines.</p>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Stripe Subscription Billing</span>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Granular RBAC Authorization</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.8rem; font-weight: 700;">Engineered Stack</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                                <span class="tag-badge">Next.js 14</span>
+                                <span class="tag-badge">PostgreSQL</span>
+                                <span class="tag-badge">TailwindCSS</span>
+                                <span class="tag-badge">Stripe APIs</span>
+                            </div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700;">Target performance</h4>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">99.9% Uptime, Sub-100ms API response latency under heavy load.</p>
+                        </div>
+                    </div>
+
+                    <!-- E-Commerce Content -->
+                    <div id="spec-tab-ecommerce" class="spec-tab-content" style="display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; text-align: left; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <div>
+                            <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 1rem; font-weight: 700;">High-Conversion E-Commerce</h3>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Customized shopping portals designed for conversions. Complete inventory control systems, integrated coupon rules, and frictionless single-page checkouts.</p>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Frictionless Checkout Funnels</span>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Real-time Inventory Tracking</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.8rem; font-weight: 700;">Engineered Stack</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                                <span class="tag-badge">React</span>
+                                <span class="tag-badge">Node.js Express</span>
+                                <span class="tag-badge">Razorpay / Stripe</span>
+                                <span class="tag-badge">MongoDB Atlas</span>
+                            </div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700;">Target performance</h4>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">+35% page-load checkout retention, sub-second product routing catalog.</p>
+                        </div>
+                    </div>
+
+                    <!-- Corporate Content -->
+                    <div id="spec-tab-brand" class="spec-tab-content" style="display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; text-align: left; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <div>
+                            <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 1rem; font-weight: 700;">Corporate Portals & Landings</h3>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Visually stunning, fluidly animated corporate sites designed to establish domain authority, convert visitors, and load instantly.</p>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Premium Micro-Animations</span>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Dynamic Headless CMS Integration</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.8rem; font-weight: 700;">Engineered Stack</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                                <span class="tag-badge">ViteJS</span>
+                                <span class="tag-badge">Vanilla CSS3</span>
+                                <span class="tag-badge">Lucide Library</span>
+                                <span class="tag-badge">Strapi Headless CMS</span>
+                            </div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700;">Target performance</h4>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">100% Core Web Vitals Pass, 98+ Google Lighthouse Performance Score.</p>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Content -->
+                    <div id="spec-tab-enterprise" class="spec-tab-content" style="display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; text-align: left; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <div>
+                            <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 1rem; font-weight: 700;">Enterprise Admin Portals</h3>
+                            <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem;">Customized dashboard panels and analytics portals for tracking corporate metrics, automated daily logs, data visualizations, and SSO links.</p>
+                            <div style="display: flex; gap: 1rem; align-items: center;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">Active Directory / SSO Login</span>
+                            </div>
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                                <i data-lucide="check-circle" style="color: var(--primary);"></i>
+                                <span style="font-weight: 600; font-size: 0.95rem;">CSV / PDF Automated Exports</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.8rem; font-weight: 700;">Engineered Stack</h4>
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+                                <span class="tag-badge">Next.js App Router</span>
+                                <span class="tag-badge">Node.js cluster</span>
+                                <span class="tag-badge">PostgreSQL</span>
+                                <span class="tag-badge">ApexCharts</span>
+                            </div>
+                            <h4 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700;">Target performance</h4>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">ZERO security breaches, sub-second query rendering for million-row tables.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack Showcase & Interactive Lighthouse Audit Simulator -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Web Tech <span class="gradient-text">Infrastructure</span></h2>
+                    <p class="section-desc">We use industry-leading frameworks to guarantee stability, security, and rendering speed.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <!-- Frontend Stack -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="layout" style="color: var(--primary);"></i> Frontend Frameworks</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">We design dynamic client-side visual boards that load instantly and provide exceptional user feedback loops.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span class="tag-badge">Next.js</span>
+                            <span class="tag-badge">React.js</span>
+                            <span class="tag-badge">TypeScript</span>
+                            <span class="tag-badge">CSS Variables</span>
+                            <span class="tag-badge">Lucide Icons</span>
+                        </div>
+                    </div>
+
+                    <!-- Backend & Storage -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="database" style="color: var(--primary);"></i> Backend & Databases</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Secure servers capable of routing requests smoothly, running complex algorithms, and handling data storage.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span class="tag-badge">Node.js</span>
+                            <span class="tag-badge">Express</span>
+                            <span class="tag-badge">PostgreSQL</span>
+                            <span class="tag-badge">Firebase DB</span>
+                            <span class="tag-badge">REST APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud & Deployment -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="cloud" style="color: var(--primary);"></i> DevOps & Hosting</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Global server nodes, edge content delivery networks (CDNs), and cloud security to keep systems online 24/7.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span class="tag-badge">Vercel</span>
+                            <span class="tag-badge">AWS Cloud</span>
+                            <span class="tag-badge">Cloudflare CDN</span>
+                            <span class="tag-badge">Firebase Hosting</span>
+                            <span class="tag-badge">Git & GitHub</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Lighthouse Audit Simulator -->
+                <div style="margin-top: 4rem; text-align: center;">
+                    <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.8rem; font-family: var(--font-heading);">Lighthouse Optimization <span class="gradient-text">Auditor</span></h3>
+                    <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 2.5rem;">Select an audit category below to reveal our page speed and indexing secrets.</p>
+                    
+                    <div class="lighthouse-simulator" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; gap: 2rem; box-shadow: 0 4px 15px var(--glass-shadow); max-width: 800px; margin: 0 auto; text-align: center;">
+                        <!-- Gauges Row -->
+                        <div style="display: flex; justify-content: space-around; gap: 1rem; flex-wrap: wrap;">
+                             <!-- Gauge 1: Performance -->
+                             <div class="lighthouse-gauge active" style="text-align: center; cursor: pointer;" data-metric="perf">
+                                 <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 8px solid #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; font-family: var(--font-heading); color: #10b981; margin: 0 auto 0.8rem; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); transition: var(--transition);">
+                                     99
+                                 </div>
+                                 <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Performance</div>
+                             </div>
+                             <!-- Gauge 2: Accessibility -->
+                             <div class="lighthouse-gauge" style="text-align: center; cursor: pointer;" data-metric="access">
+                                 <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 8px solid #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; font-family: var(--font-heading); color: #10b981; margin: 0 auto 0.8rem; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); transition: var(--transition);">
+                                     100
+                                 </div>
+                                 <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Accessibility</div>
+                             </div>
+                             <!-- Gauge 3: Best Practices -->
+                             <div class="lighthouse-gauge" style="text-align: center; cursor: pointer;" data-metric="best">
+                                 <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 8px solid #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; font-family: var(--font-heading); color: #10b981; margin: 0 auto 0.8rem; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); transition: var(--transition);">
+                                     100
+                                 </div>
+                                 <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Best Practices</div>
+                             </div>
+                             <!-- Gauge 4: SEO -->
+                             <div class="lighthouse-gauge" style="text-align: center; cursor: pointer;" data-metric="seo">
+                                 <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 8px solid #10b981; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; font-family: var(--font-heading); color: #10b981; margin: 0 auto 0.8rem; box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); transition: var(--transition);">
+                                     100
+                                 </div>
+                                 <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">SEO</div>
+                             </div>
+                        </div>
+                        <!-- Detailed Info Panel -->
+                        <div id="lighthouse-details" style="background: rgba(0, 0, 0, 0.15); border-radius: 16px; padding: 1.5rem; text-align: left; border-left: 4px solid var(--primary); transition: var(--transition);">
+                            <h4 id="lh-detail-title" style="font-size: 1.15rem; color: var(--text-main); margin-bottom: 0.5rem; font-weight: 700;">Optimization Feature: Sub-Second Load Speeds & SSR</h4>
+                            <p id="lh-detail-desc" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We leverage Next.js Server-Side Rendering (SSR) and Incremental Static Regeneration (ISR) to pre-render pages. Static assets are pushed to Cloudflare global Edge CDN nodes, guaranteeing that layout content paints in under 1.2 seconds, directly boosting Google Core Web Vitals rankings.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Code & Database Architecture Flow Diagram -->
+                <div style="margin-top: 4.5rem; text-align: center;">
+                    <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.8rem; font-family: var(--font-heading);">Web Server <span class="gradient-text">Architecture</span></h3>
+                    <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 2.5rem;">Visualizing how requests travel securely through our routing and database systems.</p>
+                    
+                    <div class="architecture-diagram" style="display: flex; flex-direction: column; align-items: center; gap: 1.2rem; margin-top: 2rem;">
+                        <!-- Step 1: User Request -->
+                        <div style="display: flex; align-items: center; gap: 1.2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.2rem 2rem; width: 100%; max-width: 480px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <div style="width: 44px; height: 44px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i data-lucide="monitor" style="color: var(--primary);"></i></div>
+                            <div>
+                                <h4 style="font-size: 1.05rem; margin-bottom: 0.2rem; font-weight: 700; color: var(--text-main);">1. Client Request (Browser / User)</h4>
+                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">HTTPS requests are initiated from target devices globally.</p>
+                            </div>
+                        </div>
+                        <div style="width: 2px; height: 25px; background: linear-gradient(180deg, var(--primary), var(--secondary));"></div>
+                        <!-- Step 2: Global Vercel/Cloudflare Edge -->
+                        <div style="display: flex; align-items: center; gap: 1.2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.2rem 2rem; width: 100%; max-width: 480px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <div style="width: 44px; height: 44px; background: rgba(168, 85, 247, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i data-lucide="cloud" style="color: var(--secondary);"></i></div>
+                            <div>
+                                <h4 style="font-size: 1.05rem; margin-bottom: 0.2rem; font-weight: 700; color: var(--text-main);">2. Edge CDN Cache Layer</h4>
+                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Static bundle structures are loaded in milliseconds near the client.</p>
+                            </div>
+                        </div>
+                        <div style="width: 2px; height: 25px; background: linear-gradient(180deg, var(--secondary), var(--accent));"></div>
+                        <!-- Step 3: Secure Express API / Next.js Serverless Routes -->
+                        <div style="display: flex; align-items: center; gap: 1.2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.2rem 2rem; width: 100%; max-width: 480px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <div style="width: 44px; height: 44px; background: rgba(6, 182, 212, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i data-lucide="server" style="color: var(--accent);"></i></div>
+                            <div>
+                                <h4 style="font-size: 1.05rem; margin-bottom: 0.2rem; font-weight: 700; color: var(--text-main);">3. Node.js Secure Backend Router</h4>
+                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Incoming actions pass through JWT validation filters and CORS checks.</p>
+                            </div>
+                        </div>
+                        <div style="width: 2px; height: 25px; background: linear-gradient(180deg, var(--accent), #10b981); position: relative;"></div>
+                        <!-- Step 4: Postgres / Firebase Database -->
+                        <div style="display: flex; align-items: center; gap: 1.2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.2rem 2rem; width: 100%; max-width: 480px; text-align: left; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <div style="width: 44px; height: 44px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><i data-lucide="database" style="color: #10b981;"></i></div>
+                            <div>
+                                <h4 style="font-size: 1.05rem; margin-bottom: 0.2rem; font-weight: 700; color: var(--text-main);">4. Secure Database Cluster</h4>
+                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Encrypted databases commit updates and return JSON indexes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process Timeline -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Web Development <span class="gradient-text">Journey</span></h2>
+                    <p class="section-desc">From the initial discovery call to launching on global clouds, we follow a transparent milestone system.</p>
+                </div>
+
+                <div style="max-width: 800px; margin: 3rem auto 0; position: relative; padding-left: 2rem; border-left: 2px solid var(--border-color); text-align: left;">
+                    <!-- Step 1 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 1: Architecture Blueprint & Requirements</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We define the database schema, page routing requirements, technical scope, and user flows to establish a flawless technical roadmap.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 2: High-Fidelity UI/UX Design Drafts</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Our UI specialists build modern, interactive, and responsive design systems mapping all pages, buttons, and responsive styles.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 3: Full Stack Core Engineering</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We write SEO-compliant semantic markup, implement database clusters, integrate custom APIs, and set up secure authentication routes.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 4: Rigorous QA, Audits, & Speed Optimization</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We run the application through speed tests, layout checks, CORS tests, and performance improvements to guarantee maximum Lighthouse scores.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div style="position: relative;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: #10b981; border: 4px solid var(--bg-color); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 5: Live Cloud Deployment & SLA Support</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We direct the code to Vercel/AWS, map custom domain settings, set up SSL security, and start monthly maintenance/backup routines.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Web App Security Architecture -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Web App <span class="gradient-text">Security Architecture</span></h2>
+                    <p class="section-desc">We follow top enterprise security standards to protect your users and databases from day one.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                        <div style="width: 48px; height: 48px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="shield-alert" style="color: var(--primary);"></i></div>
+                        <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">XSS Prevention</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">React/Next.js automatically escapes values to prevent injection, and we use custom Content Security Policies (CSP) to restrict untrusted sources.</p>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                        <div style="width: 48px; height: 48px; background: rgba(168, 85, 247, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="key-round" style="color: var(--secondary);"></i></div>
+                        <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">HttpOnly Storage</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">User sessions are secured with cryptographically signed JSON Web Tokens stored in HttpOnly cookies, completely blocking Javascript-based theft.</p>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                        <div style="width: 48px; height: 48px; background: rgba(6, 182, 212, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="activity" style="color: var(--accent);"></i></div>
+                        <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">CORS Defenses</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">We configure Express Rate Limits and whitelist specific client origins on database endpoints, shielding server nodes from DDoS/spam requests.</p>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                        <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="server-crash" style="color: #10b981;"></i></div>
+                        <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">Daily Backups</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">Our setups trigger automated hourly write-ahead log backups to secure, off-site storage clusters, ensuring immediate disaster recovery capabilities.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Web Project Budget Estimator -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Interactive Web <span class="gradient-text">Budget Estimator</span></h2>
+                    <p class="section-desc">Estimate your custom web development project budget and timeline dynamically by selecting your desired parameters.</p>
+                </div>
+
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 10px 30px var(--glass-shadow); display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; text-align: left; align-items: start; margin-top: 3rem;" class="calc-grid">
+                    <!-- Selector Controls -->
+                    <div style="display: flex; flex-direction: column; gap: 1.8rem;">
+                        <!-- Slider for page counts -->
+                        <div>
+                            <label style="font-weight: 700; font-size: 1.05rem; display: flex; justify-content: space-between; margin-bottom: 0.8rem; color: var(--text-main);">
+                                Number of Web Pages: <span id="pages-val" style="color: var(--primary); font-weight: 800;">5 Pages</span>
+                            </label>
+                            <input type="range" id="web-pages" min="1" max="30" value="5">
+                        </div>
+
+                        <!-- Toggles for database and login -->
+                        <div>
+                            <label style="font-weight: 700; font-size: 1.05rem; display: block; margin-bottom: 0.8rem; color: var(--text-main);">Custom Features & Integrations</label>
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <label style="display: flex; align-items: center; gap: 0.8rem; color: var(--text-muted); font-size: 0.95rem; cursor: pointer;">
+                                    <input type="checkbox" id="feature-db" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                    <span>Database Integration & User Accounts</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.8rem; color: var(--text-muted); font-size: 0.95rem; cursor: pointer;">
+                                    <input type="checkbox" id="feature-ecommerce" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                    <span>E-Commerce & Online Payments Gateway</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.8rem; color: var(--text-muted); font-size: 0.95rem; cursor: pointer;">
+                                    <input type="checkbox" id="feature-seo" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                    <span>Premium SEO Schema Optimization & Tuning</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 0.8rem; color: var(--text-muted); font-size: 0.95rem; cursor: pointer;">
+                                    <input type="checkbox" id="feature-admin" style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                    <span>Custom Admin Dashboard Panel</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Output Display Card -->
+                    <div style="background: rgba(0,0,0,0.15); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; min-height: 250px; height: 100%;">
+                        <h4 style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Estimated Project Investment</h4>
+                        <div id="web-estimate-price" style="font-size: 2.4rem; font-weight: 800; color: var(--text-main); font-family: var(--font-heading); margin-bottom: 0.5rem;">₹35,000 - ₹45,000</div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">Includes clean source code deployment, SSL hosting setup, responsive visual draft and 1 month post-launch support.</p>
+                        <div style="border-top: 1px solid var(--border-color); padding-top: 1.2rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-muted);">Development Timeline</div>
+                                <div id="web-estimate-time" style="font-weight: 700; color: var(--text-main); font-size: 1.1rem;">3 - 4 Weeks</div>
+                            </div>
+                            <a href="index.html#contact" class="btn-primary-sm" style="cursor: pointer; padding: 0.5rem 1.2rem; font-size: 0.85rem;">Book Consultation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialized Web FAQs -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container" style="max-width: 800px;">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Web Development <span class="gradient-text">FAQs</span></h2>
+                    <p class="section-desc">Common technical questions regarding our custom web development services.</p>
+                </div>
+
+                <div class="faq-container" style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: var(--transition);">
+                        <button class="faq-question" style="background: none; border: none; width: 100%; padding: 1.5rem; text-align: left; font-size: 1.05rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                            Do you build custom e-commerce web applications?
+                            <i data-lucide="chevron-down" class="faq-icon" style="transition: transform 0.3s;"></i>
+                        </button>
+                        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 1.5rem;">
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-bottom: 1.5rem;">Yes. We design and program custom e-commerce web applications with localized payment gateway integrations (Stripe, Razorpay, etc.), client dashboards, secure inventory tracking databases, and instant order notification pipelines.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: var(--transition);">
+                        <button class="faq-question" style="background: none; border: none; width: 100%; padding: 1.5rem; text-align: left; font-size: 1.05rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                            Can you migrate my existing slow WordPress/Wix site to Next.js?
+                            <i data-lucide="chevron-down" class="faq-icon" style="transition: transform 0.3s;"></i>
+                        </button>
+                        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 1.5rem;">
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-bottom: 1.5rem;">Yes. We can rebuild your slow website using React and Next.js, preserving your design branding while improving your loading speed, Core Web Vitals score, security defenses, and organic Google SEO positioning.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: var(--transition);">
+                        <button class="faq-question" style="background: none; border: none; width: 100%; padding: 1.5rem; text-align: left; font-size: 1.05rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                            Who owns the web application source code and databases?
+                            <i data-lucide="chevron-down" class="faq-icon" style="transition: transform 0.3s;"></i>
+                        </button>
+                        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 1.5rem;">
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-bottom: 1.5rem;">You do. Once deployment is complete and project parameters are satisfied, full intellectual property and source code ownership is transferred directly to your GitHub account and server nodes.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,6 +641,153 @@
             // Read active theme
             const storedTheme = localStorage.getItem('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', storedTheme);
+
+            // Tab switcher
+            const specTabs = document.querySelectorAll('.spec-tab-btn');
+            const specContents = document.querySelectorAll('.spec-tab-content');
+            specTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    specTabs.forEach(t => t.classList.remove('active'));
+                    specContents.forEach(c => c.style.display = 'none');
+                    
+                    tab.classList.add('active');
+                    const activeTabId = tab.getAttribute('data-tab');
+                    document.getElementById('spec-tab-' + activeTabId).style.display = 'grid';
+                });
+            });
+
+            // Lighthouse auditor simulator
+            const gauges = document.querySelectorAll('.lighthouse-gauge');
+            const detailTitle = document.getElementById('lh-detail-title');
+            const detailDesc = document.getElementById('lh-detail-desc');
+            const detailContainer = document.getElementById('lighthouse-details');
+            
+            const metricsData = {
+                perf: {
+                    title: "Optimization Feature: Sub-Second Load Speeds & SSR",
+                    desc: "We leverage Next.js Server-Side Rendering (SSR) and Incremental Static Regeneration (ISR) to pre-render pages. Static assets are pushed to Cloudflare global Edge CDN nodes, guaranteeing that layout content paints in under 1.2 seconds, directly boosting Google Core Web Vitals rankings.",
+                    color: "var(--primary)"
+                },
+                access: {
+                    title: "Optimization Feature: 100% Screen Reader & Aria Compliance",
+                    desc: "Every component is structured with semantic HTML5 elements (main, article, section) and full ARIA roles. Contrast ratios are optimized for visually impaired users, ensuring complete accessibility compliance which ranks higher in search algorithms.",
+                    color: "var(--secondary)"
+                },
+                best: {
+                    title: "Optimization Feature: Secure Code Standards & HTTPS Redirects",
+                    desc: "We write strict TypeScript, bundle clean modular Javascript, set up automated CSRF security headers, enforce strict CORS policies, and compile scripts through automated linters to prevent memory leaks and secure customer sessions.",
+                    color: "var(--accent)"
+                },
+                seo: {
+                    title: "Optimization Feature: Structured JSON-LD Metadata",
+                    desc: "Each page is injected with search-optimized JSON-LD schema layouts. OpenGraph and Twitter meta tags are dynamically configured for rich social preview rendering, and clean sitemaps are registered with search engines for instant indexing.",
+                    color: "#10b981"
+                }
+            };
+
+            gauges.forEach(gauge => {
+                gauge.addEventListener('click', () => {
+                    // Remove active classes
+                    gauges.forEach(g => g.classList.remove('active'));
+                    gauge.classList.add('active');
+                    
+                    const metric = gauge.getAttribute('data-metric');
+                    const data = metricsData[metric];
+                    if (data) {
+                        detailTitle.innerText = data.title;
+                        detailDesc.innerText = data.desc;
+                        detailContainer.style.borderLeftColor = data.color;
+                    }
+                });
+            });
+
+            // Web Budget Calculator
+            const pagesInput = document.getElementById('web-pages');
+            const pagesValText = document.getElementById('pages-val');
+            
+            const dbCheck = document.getElementById('feature-db');
+            const ecoCheck = document.getElementById('feature-ecommerce');
+            const seoCheck = document.getElementById('feature-seo');
+            const adminCheck = document.getElementById('feature-admin');
+            
+            const priceText = document.getElementById('web-estimate-price');
+            const timeText = document.getElementById('web-estimate-time');
+
+            function calculateWebEstimates() {
+                const pages = parseInt(pagesInput.value, 10);
+                pagesValText.innerText = pages + (pages === 1 ? " Page" : " Pages");
+
+                let basePrice = 15000;
+                let baseDays = 10;
+
+                // Pages addition
+                if (pages > 1) {
+                    basePrice += (pages - 1) * 2000;
+                    baseDays += (pages - 1) * 1;
+                }
+
+                // Features addition
+                if (dbCheck.checked) {
+                    basePrice += 15000;
+                    baseDays += 7;
+                }
+                if (ecoCheck.checked) {
+                    basePrice += 20000;
+                    baseDays += 10;
+                }
+                if (seoCheck.checked) {
+                    basePrice += 5000;
+                    baseDays += 2;
+                }
+                if (adminCheck.checked) {
+                    basePrice += 15000;
+                    baseDays += 7;
+                }
+
+                // Format values
+                const priceMinStr = "₹" + basePrice.toLocaleString('en-IN');
+                const priceMaxStr = "₹" + (basePrice + 10000).toLocaleString('en-IN');
+                
+                const weeksMin = Math.max(1, Math.round(baseDays / 7));
+                const weeksMax = Math.round((baseDays + 5) / 7);
+                
+                priceText.innerText = `${priceMinStr} - ${priceMaxStr}`;
+                timeText.innerText = `${weeksMin} - ${weeksMax} Weeks`;
+            }
+
+            pagesInput.addEventListener('input', calculateWebEstimates);
+            dbCheck.addEventListener('change', calculateWebEstimates);
+            ecoCheck.addEventListener('change', calculateWebEstimates);
+            seoCheck.addEventListener('change', calculateWebEstimates);
+            adminCheck.addEventListener('change', calculateWebEstimates);
+
+            // Initial run
+            calculateWebEstimates();
+
+            // FAQ accordion script
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all
+                    faqItems.forEach(faq => {
+                        faq.classList.remove('active');
+                        faq.querySelector('.faq-answer').style.maxHeight = null;
+                        const icon = faq.querySelector('.faq-icon');
+                        if (icon) icon.style.transform = 'rotate(0deg)';
+                    });
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        const answer = item.querySelector('.faq-answer');
+                        answer.style.maxHeight = answer.scrollHeight + 50 + "px";
+                        const icon = item.querySelector('.faq-icon');
+                        if (icon) icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
         });
     </script>
 </body>

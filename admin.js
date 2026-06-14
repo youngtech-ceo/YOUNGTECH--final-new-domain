@@ -580,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const milestoneLabels = {
                         1: "1. Requirement & Design",
-                        2: "2. Frontend/Hardware Prototype",
+                        2: "2. Frontend Prototype & Design Draft",
                         3: "3. Core Development",
                         4: "4. Quality Testing",
                         5: "5. Ready for Deployment",

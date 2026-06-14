@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "p2": {
             title: "Lions Gym Erode CRM Portal",
-            category: "biz",
+            category: "web",
             techStack: "React, Node.js, SQL Database",
             desc: "A custom customer management hub built for local gym operations, integrating real-time check-in stats and automated fee reminders.",
             results: "45% increase in gym member retention",
@@ -262,13 +262,13 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "p3": {
             title: "Mavis Warehouse IoT Streams",
-            category: "iot",
+            category: "mobile",
             techStack: "Flutter, ESP32, MQTT Protocol",
-            desc: "Robust embedded temperature sensor circuits feeding real-time telemetry updates to a beautifully animated Flutter dashboard app under 200ms.",
+            desc: "A beautifully animated Flutter mobile dashboard tracking warehouse telemetry updates and sensor metrics under 200ms.",
             results: "Prevented 3 major food spoilage events",
             img: "https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png",
             url: "mavis",
-            icon: "wifi"
+            icon: "smartphone"
         },
         "p4": {
             title: "One Dine Tirupur Systems",
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "p5": {
             title: "Pretty Queen Salon Ledger",
-            category: "biz",
+            category: "web",
             techStack: "Vanilla JS, CSS Grid, SEO Schema",
             desc: "A stunning corporate aesthetic showcase, treatment catalogs, and booking ledger tailored to rank first inside local search parameters.",
             results: "+120% surge in online bookings",
@@ -497,25 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Pricing comparison feature matrix toggle
-    const comparisonToggle = document.getElementById('comparison-toggle');
-    const comparisonWrapper = document.getElementById('comparison-wrapper');
-    if (comparisonToggle && comparisonWrapper) {
-        comparisonToggle.addEventListener('click', () => {
-            comparisonToggle.classList.toggle('active');
-            comparisonWrapper.classList.toggle('active');
-            
-            const icon = comparisonToggle.querySelector('i');
-            if (comparisonWrapper.classList.contains('active')) {
-                comparisonToggle.innerHTML = 'Hide Detailed Comparison <i data-lucide="chevron-up"></i>';
-            } else {
-                comparisonToggle.innerHTML = 'Show Feature Comparison <i data-lucide="chevron-down"></i>';
-            }
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
-        });
-    }
+
 
     // ==========================================
     // 7. CALENDAR CONSULTATION MODAL SCHEDULER
@@ -1180,4 +1162,34 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ==========================================
+    // 16. ABOUT & TEAM SECTION TABS LOGIC
+    // ==========================================
+    const tabButtons = document.querySelectorAll('.about-tab-btn');
+    const tabContents = document.querySelectorAll('.about-tab-content');
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.getAttribute('data-tab');
+
+            tabButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            tabContents.forEach(content => {
+                if (content.getAttribute('id') === `tab-${targetTab}`) {
+                    content.style.display = 'block';
+                    content.classList.add('active');
+                } else {
+                    content.style.display = 'none';
+                    content.classList.remove('active');
+                }
+            });
+            
+            // Re-render Lucide icons if any are in the newly shown tab
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        });
+    });
 });

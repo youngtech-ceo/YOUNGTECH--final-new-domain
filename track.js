@@ -160,9 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (order.projectType === 'app') {
             projectTypeBadge.classList.add('badge-app');
             typeBadgeHTML = '<i data-lucide="smartphone" style="width:14px;height:14px;"></i> Mobile App';
-        } else if (order.projectType === 'realtime') {
-            projectTypeBadge.classList.add('badge-realtime');
-            typeBadgeHTML = '<i data-lucide="wifi" style="width:14px;height:14px;"></i> Realtime IoT Development';
         } else {
             projectTypeBadge.classList.add('badge-web');
             typeBadgeHTML = '<i data-lucide="globe" style="width:14px;height:14px;"></i> Web Application';

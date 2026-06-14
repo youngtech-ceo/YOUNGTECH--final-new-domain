@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Application Development Services | Young Tech</title>
+    <meta name="description" content="Young Tech engineers stunning cross-platform native mobile applications (iOS & Android) using Flutter, featuring high-fidelity animations, offline database sync, and secure device bridges.">
+    <meta name="keywords" content="Mobile App Development, Flutter, iOS, Android, Cross-platform Apps, Young Tech, Gobi, Erode">
+    
+    <!-- Tab Logo -->
+    <link class="tab-logo" rel="icon" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Mobile Application Development",
+      "serviceType": "MobileAppDevelopment",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Young Tech",
+        "image": "https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png"
+      },
+      "description": "High-performance cross-platform iOS & Android mobile apps built with Flutter, customized fluid animations, and real-time offline synchronization."
+    }
+    </script>
+
+    <style>
+        .tag-badge {
+            background: var(--badge-bg);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Simulated Phone Frame */
+        .phone-frame {
+            width: 280px;
+            height: 480px;
+            background: #090b14;
+            border: 8px solid #1a1e2f;
+            border-radius: 36px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 15px 35px var(--glass-shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 12px solid #1a1e2f;
+        }
+        .phone-notch {
+            width: 100px;
+            height: 16px;
+            background: #1a1e2f;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+        .phone-screen {
+            padding: 2.2rem 1.2rem 1.2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #f8fafc;
+            font-family: var(--font-body);
+        }
+        
+        /* Budget Estimator Switch toggle styles */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-color);
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+        .select-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--transition);
+        }
+        .select-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 15px var(--primary-glow);
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+                <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Tech Logo" border="0" style="height: 40px; width: auto; border-radius: 8px;">
+                <span class="logo-accent" style="font-size: 1.4rem; font-weight: 800; color: var(--text-main);">YOUNG TECH</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#services" class="nav-link">Services</a></li>
+                <li><a href="index.html#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="index.html#contact" class="btn-primary-sm">Start A Project</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main style="padding-top: 120px;">
+        <!-- Hero Section -->
+        <section class="section" style="padding: 80px 0 40px;">
+            <div class="container" style="text-align: center; max-width: 800px;">
+                <div class="badge" style="border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary); margin-bottom: 1rem;">CROSS-PLATFORM MOBILITY</div>
+                <h1 style="font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; font-family: var(--font-heading); line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-main);">
+                    Premium <span class="gradient-text">Mobile App</span> Development
+                </h1>
+                <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem;">
+                    We design and code beautiful, high-performance mobile applications for iOS and Android. Built with Google's Flutter framework to ensure native speeds, micro-interactions, and offline-first capabilities.
+                </p>
+                <div style="display: flex; justify-content: center; gap: 1rem;">
+                    <a href="index.html#contact" class="btn-primary">Request Custom Mobile Blueprint <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Mobile Engineering <span class="gradient-text">Guarantees</span></h2>
+                    <p class="section-desc">We eliminate interface delays and build robust local syncing pipelines that operate under any connection state.</p>
+                </div>
+
+                <div class="services-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="smartphone" class="service-icon"></i></div>
+                        <h3>Cross-Platform Flutter</h3>
+                        <p>Write once and deploy native-rendering iOS and Android applications with fluid 60fps animations and layout parity.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="database" class="service-icon"></i></div>
+                        <h3>Offline-First Sync</h3>
+                        <p>Background synchronization routines and offline databases (Hive/SQLite) ensure user progress is saved without network signal.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="fingerprint" class="service-icon"></i></div>
+                        <h3>Hardware Bridges</h3>
+                        <p>Direct mapping to device cameras, core location metrics, biometrics (FaceID/Fingerprint), and push notification nodes.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon-wrapper"><i data-lucide="shield" class="service-icon"></i></div>
+                        <h3>Biometric Security</h3>
+                        <p>Keychain data locking, sandboxed databases, secure API payload hashing, and modern access token architectures.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialized App Niches (Detailed Service Breakdown) -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Specialized Mobile <span class="gradient-text">Niches</span></h2>
+                    <p class="section-desc">We build solutions that run on physical hardware with extreme layout control.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: left;">
+                        <div style="width: 48px; height: 48px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="users" style="color: var(--primary);"></i></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">Consumer iOS & Android</h4>
+                        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">Direct store publishing, responsive rendering, customized fluid animations, local caching frameworks, and rich social media integration portals.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                            <span class="tag-badge">Framer Animations</span>
+                            <span class="tag-badge">Store Publish</span>
+                        </div>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: left;">
+                        <div style="width: 48px; height: 48px; background: rgba(168, 85, 247, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="truck" style="color: var(--secondary);"></i></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">Enterprise & Logistics</h4>
+                        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">Streamlined internal portals for moving teams. GPS location metrics, camera barcode scan bridges, offline checklists, and secure JWT database logs.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                            <span class="tag-badge">GPS Tracking</span>
+                            <span class="tag-badge">Barcode SDK</span>
+                        </div>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: left;">
+                        <div style="width: 48px; height: 48px; background: rgba(6, 182, 212, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="cpu" style="color: var(--accent);"></i></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">IoT & Hardware Bridges</h4>
+                        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">Connect directly to local microcontrollers (ESP32 / BLE devices) via Bluetooth Low Energy or WebSockets, rendering live sensor telemetries.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                            <span class="tag-badge">BLE Connection</span>
+                            <span class="tag-badge">WebSockets</span>
+                        </div>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02); text-align: left;">
+                        <div style="width: 48px; height: 48px; background: rgba(16, 185, 129, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;"><i data-lucide="layers" style="color: #10b981;"></i></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--text-main);">SaaS Mobile Extensions</h4>
+                        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1rem;">Native applications extending your web platform dashboard. Complete data synchronization, real-time push alerts, and device biometrics login.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;">
+                            <span class="tag-badge">FCM Push Alerts</span>
+                            <span class="tag-badge">Biometric Auth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Device Hardware Integration Matrix -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Hardware <span class="gradient-text">Integrations</span></h2>
+                    <p class="section-desc">Our applications build bridges directly into native device telemetry nodes.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.8rem; text-align: left; display: flex; gap: 1rem;">
+                        <i data-lucide="fingerprint" style="color: var(--primary); width: 28px; height: 28px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Biometrics (FaceID / TouchID)</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Native system prompts allowing cryptographic login without manual password entries.</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.8rem; text-align: left; display: flex; gap: 1rem;">
+                        <i data-lucide="map-pin" style="color: var(--secondary); width: 28px; height: 28px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Geofencing & Background Location</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Secure tracking of user coordinates in the background while optimizing device battery usage.</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.8rem; text-align: left; display: flex; gap: 1rem;">
+                        <i data-lucide="camera" style="color: var(--accent); width: 28px; height: 28px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Camera & Image Processing</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Direct hardware scanner control, photo metadata compression, and live video recording bridges.</p>
+                        </div>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.8rem; text-align: left; display: flex; gap: 1rem;">
+                        <i data-lucide="database" style="color: #10b981; width: 28px; height: 28px; flex-shrink: 0; margin-top: 0.2rem;"></i>
+                        <div>
+                            <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Local Hive / SQLite Sandbox</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5;">Sub-millisecond data writes targeting secure device storage slots for true offline operation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Offline-First Sync Simulator -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Offline-First <span class="gradient-text">Sync Simulator</span></h2>
+                    <p class="section-desc">Experience how our mobile applications write data offline and automatically push synchronization once reconnected.</p>
+                </div>
+
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 10px 30px var(--glass-shadow); display: grid; grid-template-columns: 1fr 1.2fr; gap: 2.5rem; text-align: left; align-items: center; margin-top: 3rem;" class="calc-grid">
+                    <!-- Phone Mockup -->
+                    <div>
+                        <div class="phone-frame">
+                            <div class="phone-notch"></div>
+                            <div class="phone-screen">
+                                <!-- App Header -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">
+                                    <span style="font-weight: 800; font-size: 0.8rem; letter-spacing: 0.5px;">YT LOGISTICS</span>
+                                    <div id="sim-network-status" style="display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; font-weight: 600; color: #10b981;">
+                                        <i data-lucide="wifi" style="width: 14px; height: 14px;"></i> Online
+                                    </div>
+                                </div>
+                                <!-- App Body -->
+                                <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 1rem;">
+                                    <div id="sim-data-badge" style="width: 70px; height: 70px; border-radius: 50%; background: rgba(99,102,241,0.1); border: 2px dashed var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; color: var(--primary); transition: var(--transition);">
+                                        0
+                                    </div>
+                                    <div>
+                                        <h5 id="sim-status-title" style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; color: #fff;">Local Data Queue</h5>
+                                        <p id="sim-status-desc" style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.4;">Device database is synchronized with cloud server endpoints.</p>
+                                    </div>
+                                </div>
+                                <!-- App Action Button -->
+                                <button id="sim-app-btn" style="background: linear-gradient(135deg, var(--primary), var(--secondary)); border: none; color: white; padding: 0.7rem; border-radius: 12px; font-weight: 700; font-size: 0.8rem; cursor: pointer; width: 100%;">Create Offline Order</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Simulation Controls and details -->
+                    <div>
+                        <h3 style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.2rem;">Simulation Controller</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Toggle the simulated network status, create local sandbox entries, and observe the database logs. This represents real-world performance during network drops in moving vehicles or rural areas.</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <!-- Control 1: Toggle network connection -->
+                            <div style="background: rgba(0,0,0,0.15); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Simulated WiFi Link</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Switch device to offline state</div>
+                                </div>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="sim-toggle-network" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <!-- Control 2: Sync command -->
+                            <div style="background: rgba(0,0,0,0.15); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 700; font-size: 0.95rem; color: var(--text-main);">Trigger SQLite Sync</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">Flush queued records to cloud</div>
+                                </div>
+                                <button id="sim-sync-btn" disabled style="background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-muted); padding: 0.5rem 1rem; border-radius: 50px; cursor: not-allowed; font-size: 0.85rem; font-weight: 700; transition: var(--transition);">Push Sync</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technology Stack Showcase & Flutter compiled model -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Mobile Tech <span class="gradient-text">Infrastructure</span></h2>
+                    <p class="section-desc">We use advanced frameworks and SDKs to support fluid interfaces and secure cloud synchronization.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-top: 3rem;">
+                    <!-- SDKs & Languages -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="code" style="color: var(--primary);"></i> SDKs & Languages</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">We build native compiles targeting iOS and Android platforms, providing responsive rendering and high performance.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span class="tag-badge">Flutter SDK</span>
+                            <span class="tag-badge">Dart Lang</span>
+                            <span class="tag-badge">Swift (iOS Native)</span>
+                            <span class="tag-badge">Kotlin (Android)</span>
+                            <span class="tag-badge">Material Design</span>
+                        </div>
+                    </div>
+
+                    <!-- Local Storage & Services -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="hard-drive" style="color: var(--primary);"></i> Local Database & API</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">Secure local databases for sub-millisecond offline reads, backed by reliable REST API endpoints.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span class="tag-badge">Hive DB</span>
+                            <span class="tag-badge">SQLite</span>
+                            <span class="tag-badge">Firebase Auth</span>
+                            <span class="tag-badge">Firestore DB</span>
+                            <span class="tag-badge">JSON REST API</span>
+                        </div>
+                    </div>
+
+                    <!-- Deploy & Push -->
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 2.5rem; text-align: left; box-shadow: 0 4px 15px var(--glass-shadow);">
+                        <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;"><i data-lucide="send" style="color: var(--primary);"></i> Distribution & Push</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;">App store compliance publishing pipelines and real-time push notification telemetry systems.</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <span class="tag-badge">App Store Connect</span>
+                            <span class="tag-badge">Google Play Console</span>
+                            <span class="tag-badge">Firebase FCM</span>
+                            <span class="tag-badge">Codemagic CI/CD</span>
+                            <span class="tag-badge">TestFlight</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flutter Compile Architecture diagram -->
+                <div style="margin-top: 4.5rem; text-align: center;">
+                    <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.8rem; font-family: var(--font-heading);">Flutter Native compilation <span class="gradient-text">Model</span></h3>
+                    <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 2.5rem;">Unlike hybrid apps wrapping web elements, Flutter compiles directly to machine instructions.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 800px; margin: 2rem auto 0; text-align: left;">
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="apple" style="color: var(--primary);"></i> iOS IPA Compilation</h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem; border-left: 2px solid var(--border-color); padding-left: 1rem;">
+                                <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">1. Dart Source Code</span>
+                                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">2. LLVM Ahead-of-Time (AOT)</span>
+                                <span style="font-size: 0.85rem; font-weight: 700; color: #10b981;">3. Native ARM64 Machine Code</span>
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-top: 1rem;">Direct native execution bypassing intermediate JS bridges, providing fluid 60fps scrolling.</p>
+                        </div>
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                            <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="play" style="color: var(--primary);"></i> Android AAB Compilation</h4>
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem; border-left: 2px solid var(--border-color); padding-left: 1rem;">
+                                <span style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">1. Dart Source Code</span>
+                                <span style="font-size: 0.85rem; font-weight: 700; color: var(--text-main);">2. Android NDK toolchain</span>
+                                <span style="font-size: 0.85rem; font-weight: 700; color: #10b981;">3. Native C/C++ Binary Libraries</span>
+                            </div>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; margin-top: 1rem;">Pre-compiled binaries run directly on Android OS registers with optimal CPU threads.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Process Timeline -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Our Mobile App <span class="gradient-text">Journey</span></h2>
+                    <p class="section-desc">We program mobile applications utilizing step-by-step milestones to guarantee on-time app store releases.</p>
+                </div>
+
+                <div style="max-width: 800px; margin: 3rem auto 0; position: relative; padding-left: 2rem; border-left: 2px solid var(--border-color); text-align: left;">
+                    <!-- Step 1 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 1: Screen Flow Routing & Database Blueprint</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We map all screen flows, construct local offline data schemas, and design the API interaction architecture.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 2: High-Fidelity App UI Design Drafts</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Our UI specialists build modern, interactive Figma layouts representing each mobile screen and micro-interaction state.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 3: Cross-Platform Flutter Coding</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We implement fluid UI widgets, program offline-first caching, configure hardware bridges, and link cloud authentication.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div style="position: relative; margin-bottom: 3rem;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: var(--primary); border: 4px solid var(--bg-color); box-shadow: 0 0 10px var(--primary-glow);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 4: Beta Distribution (TestFlight & Android Beta)</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">The application is compiled and sent to you via iOS TestFlight and Google Internal Testing loops for sandbox validation.</p>
+                    </div>
+                    <!-- Step 5 -->
+                    <div style="position: relative;">
+                        <div style="position: absolute; left: -2.65rem; top: 0.2rem; width: 20px; height: 20px; border-radius: 50%; background: #10b981; border: 4px solid var(--bg-color); box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);"></div>
+                        <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">Stage 5: App Store Publishing & SLA Support</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">We guide your application through Apple/Google Store compliance, submit final builds, and set up monthly update SLA routines.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- App Store Submission Guarantee Pipeline -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">App Store <span class="gradient-text">Submission Support</span></h2>
+                    <p class="section-desc">We manage the compliance roadmap from graphics packaging to Apple/Google review approvals.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; text-align: left;">
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                        <span style="font-weight: 800; font-size: 1.5rem; color: var(--primary); display: block; margin-bottom: 0.5rem;">01</span>
+                        <h5 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Store Assets Prep</h5>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">Formatting store listings screenshots for all required phone display diagonals.</p>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                        <span style="font-weight: 800; font-size: 1.5rem; color: var(--primary); display: block; margin-bottom: 0.5rem;">02</span>
+                        <h5 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Signing Keychains</h5>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">Configuring secure provisioning profiles and iOS distribution certificates.</p>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                        <span style="font-weight: 800; font-size: 1.5rem; color: var(--primary); display: block; margin-bottom: 0.5rem;">03</span>
+                        <h5 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Data Privacy Rules</h5>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">Generating hosting-ready privacy links and target data tracking sheets.</p>
+                    </div>
+                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem;">
+                        <span style="font-weight: 800; font-size: 1.5rem; color: var(--primary); display: block; margin-bottom: 0.5rem;">04</span>
+                        <h5 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">Review Submission</h5>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.5;">Providing target test account tokens for sandbox verification by store reviewers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Mobile Project Budget Estimator -->
+        <section class="section" style="padding: 80px 0;">
+            <div class="container" style="max-width: 900px;">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Interactive Mobile <span class="gradient-text">Budget Estimator</span></h2>
+                    <p class="section-desc">Configure your app's deployment choices to dynamically compute price quotes and delivery timelines.</p>
+                </div>
+
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem; box-shadow: 0 10px 30px var(--glass-shadow); display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2.5rem; text-align: left; align-items: start; margin-top: 3rem;" class="calc-grid">
+                    <!-- Selector Controls -->
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <!-- Selection buttons for platform targets -->
+                        <div>
+                            <label style="font-weight: 700; font-size: 1.05rem; display: block; margin-bottom: 0.8rem; color: var(--text-main);">Target Platforms</label>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="select-btn active" id="btn-both-platforms" data-val="both">Both iOS & Android</button>
+                                <button class="select-btn" id="btn-ios-only" data-val="ios">iOS Only</button>
+                                <button class="select-btn" id="btn-android-only" data-val="android">Android Only</button>
+                            </div>
+                        </div>
+
+                        <!-- Toggles for mobile features -->
+                        <div>
+                            <label style="font-weight: 700; font-size: 1.05rem; display: block; margin-bottom: 0.8rem; color: var(--text-main);">App Features</label>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">User Login & Biometrics</div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted);">OAuth, OTP, or FaceID locks</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="mobile-auth" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">Offline-First SQLite Database</div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted);">Local sandboxed database queuing</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="mobile-offline">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">Payment Gateway Setup</div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted);">Stripe/Razorpay SDK integration</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="mobile-payment">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">FCM Push Notifications</div>
+                                        <div style="font-size: 0.8rem; color: var(--text-muted);">Real-time server notification alerts</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="mobile-push" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Output Display Card -->
+                    <div style="background: rgba(0,0,0,0.15); border: 1px solid var(--border-color); border-radius: 20px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; min-height: 250px; height: 100%;">
+                        <h4 style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Estimated Project Investment</h4>
+                        <div id="mobile-estimate-price" style="font-size: 2.4rem; font-weight: 800; color: var(--text-main); font-family: var(--font-heading); margin-bottom: 0.5rem;">₹48,000 - ₹58,000</div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem;">Includes store submission support, sandboxed database configuration, responsive layout testing and 1 month post-launch support.</p>
+                        <div style="border-top: 1px solid var(--border-color); padding-top: 1.2rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                            <div>
+                                <div style="font-size: 0.85rem; color: var(--text-muted);">Development Timeline</div>
+                                <div id="mobile-estimate-time" style="font-weight: 700; color: var(--text-main); font-size: 1.1rem;">4 - 5 Weeks</div>
+                            </div>
+                            <a href="index.html#contact" class="btn-primary-sm" style="cursor: pointer; padding: 0.5rem 1.2rem; font-size: 0.85rem;">Book Consultation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialized Mobile FAQs -->
+        <section class="section alt-bg" style="padding: 80px 0;">
+            <div class="container" style="max-width: 800px;">
+                <div class="section-header text-center">
+                    <h2 class="section-title">Mobile App <span class="gradient-text">FAQs</span></h2>
+                    <p class="section-desc">Common technical questions regarding our mobile app design and development services.</p>
+                </div>
+
+                <div class="faq-container" style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: var(--transition);">
+                        <button class="faq-question" style="background: none; border: none; width: 100%; padding: 1.5rem; text-align: left; font-size: 1.05rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                            Do you publish our app to the Apple App Store and Google Play Store?
+                            <i data-lucide="chevron-down" class="faq-icon" style="transition: transform 0.3s;"></i>
+                        </button>
+                        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 1.5rem;">
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-bottom: 1.5rem;">Yes. We handle the entire compliance pipeline, including creating necessary store screenshot dimensions, setting up store listings metadata, configuring target API compliance, and submitting builds for final Apple/Google review.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: var(--transition);">
+                        <button class="faq-question" style="background: none; border: none; width: 100%; padding: 1.5rem; text-align: left; font-size: 1.05rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                            Can you build offline features that sync when the user reconnects?
+                            <i data-lucide="chevron-down" class="faq-icon" style="transition: transform 0.3s;"></i>
+                        </button>
+                        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 1.5rem;">
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-bottom: 1.5rem;">Yes. We integrate local databases (Hive/SQLite) inside the app to save and write data directly to sandboxed space on the device. Once an internet connection is established, background sync algorithms automatically upload the queued data to your cloud endpoints.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: var(--transition);">
+                        <button class="faq-question" style="background: none; border: none; width: 100%; padding: 1.5rem; text-align: left; font-size: 1.05rem; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                            How do you handle future iOS and Android operating system upgrades?
+                            <i data-lucide="chevron-down" class="faq-icon" style="transition: transform 0.3s;"></i>
+                        </button>
+                        <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.35s ease-out; padding: 0 1.5rem;">
+                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-bottom: 1.5rem;">We offer monthly support SLAs to monitor OS compliance. When Google or Apple releases new API updates, we check layout parameters and build settings to publish compliance patches, keeping your app running seamlessly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2026 Young Tech. All rights reserved. Premium Mobile App Development Services.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+            
+            // Read active theme
+            const storedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', storedTheme);
+
+            // Sync Simulator variables
+            const simNetworkToggle = document.getElementById('sim-toggle-network');
+            const simNetworkStatusText = document.getElementById('sim-network-status');
+            const simDataBadge = document.getElementById('sim-data-badge');
+            const simAppBtn = document.getElementById('sim-app-btn');
+            const simSyncBtn = document.getElementById('sim-sync-btn');
+            const simStatusTitle = document.getElementById('sim-status-title');
+            const simStatusDesc = document.getElementById('sim-status-desc');
+            
+            let localQueueCount = 0;
+            let isOnline = true;
+
+            simNetworkToggle.addEventListener('change', () => {
+                isOnline = simNetworkToggle.checked;
+                if (isOnline) {
+                    simNetworkStatusText.innerHTML = '<i data-lucide="wifi" style="width: 14px; height: 14px;"></i> Online';
+                    simNetworkStatusText.style.color = '#10b981';
+                    simAppBtn.innerText = 'Create Online Order';
+                    if (localQueueCount > 0) {
+                        simSyncBtn.disabled = false;
+                        simSyncBtn.style.cursor = 'pointer';
+                        simSyncBtn.style.background = 'linear-gradient(135deg, var(--primary), var(--secondary))';
+                        simSyncBtn.style.color = 'white';
+                    }
+                } else {
+                    simNetworkStatusText.innerHTML = '<i data-lucide="wifi-off" style="width: 14px; height: 14px;"></i> Offline';
+                    simNetworkStatusText.style.color = '#EA4335';
+                    simAppBtn.innerText = 'Save Offline Order';
+                    simSyncBtn.disabled = true;
+                    simSyncBtn.style.cursor = 'not-allowed';
+                    simSyncBtn.style.background = 'var(--bg-card)';
+                    simSyncBtn.style.color = 'var(--text-muted)';
+                }
+                if (window.lucide) window.lucide.createIcons();
+            });
+
+            simAppBtn.addEventListener('click', () => {
+                if (isOnline) {
+                    // Send directly to server
+                    simStatusTitle.innerText = "Order Dispatched";
+                    simStatusDesc.innerText = "Online API route successfully logged transaction to server database directly.";
+                    
+                    // Brief green border feedback
+                    simDataBadge.style.borderColor = '#10b981';
+                    setTimeout(() => { simDataBadge.style.borderColor = 'var(--primary)'; }, 1000);
+                } else {
+                    // Save to Hive queue
+                    localQueueCount++;
+                    simDataBadge.innerText = localQueueCount;
+                    simDataBadge.style.borderColor = 'var(--secondary)';
+                    
+                    simStatusTitle.innerText = "Saved to Hive DB";
+                    simStatusDesc.innerText = `Data written locally to sandboxed storage. Status: Queued (${localQueueCount} records).`;
+                }
+            });
+
+            simSyncBtn.addEventListener('click', () => {
+                if (!isOnline || localQueueCount === 0) return;
+                
+                simSyncBtn.disabled = true;
+                simSyncBtn.innerText = 'Syncing...';
+                
+                // Simulate network request
+                setTimeout(() => {
+                    localQueueCount = 0;
+                    simDataBadge.innerText = '0';
+                    simDataBadge.style.borderColor = 'var(--primary)';
+                    
+                    simSyncBtn.innerText = 'Push Sync';
+                    simSyncBtn.disabled = true;
+                    simSyncBtn.style.cursor = 'not-allowed';
+                    simSyncBtn.style.background = 'var(--bg-card)';
+                    simSyncBtn.style.color = 'var(--text-muted)';
+                    
+                    simStatusTitle.innerText = "Sync Completed";
+                    simStatusDesc.innerText = "All local sandbox records successfully parsed and uploaded to server SQL clusters.";
+                }, 1500);
+            });
+
+            // Mobile Budget Calculator
+            let targetPlatform = 'both'; // both, ios, android
+            
+            const btnBoth = document.getElementById('btn-both-platforms');
+            const btnIos = document.getElementById('btn-ios-only');
+            const btnAndroid = document.getElementById('btn-android-only');
+            
+            const mAuth = document.getElementById('mobile-auth');
+            const mOffline = document.getElementById('mobile-offline');
+            const mPayment = document.getElementById('mobile-payment');
+            const mPush = document.getElementById('mobile-push');
+            
+            const mPriceText = document.getElementById('mobile-estimate-price');
+            const mTimeText = document.getElementById('mobile-estimate-time');
+
+            function selectPlatform(platform, activeBtn) {
+                targetPlatform = platform;
+                [btnBoth, btnIos, btnAndroid].forEach(btn => btn.classList.remove('active'));
+                activeBtn.classList.add('active');
+                calculateMobileEstimates();
+            }
+
+            btnBoth.addEventListener('click', () => selectPlatform('both', btnBoth));
+            btnIos.addEventListener('click', () => selectPlatform('ios', btnIos));
+            btnAndroid.addEventListener('click', () => selectPlatform('android', btnAndroid));
+
+            function calculateMobileEstimates() {
+                let basePrice = 20000;
+                let baseDays = 15;
+
+                if (targetPlatform === 'both') {
+                    basePrice = 35000;
+                    baseDays = 25;
+                }
+
+                // Feature additions
+                if (mAuth.checked) {
+                    basePrice += 8000;
+                    baseDays += 4;
+                }
+                if (mOffline.checked) {
+                    basePrice += 15000;
+                    baseDays += 10;
+                }
+                if (mPayment.checked) {
+                    basePrice += 12000;
+                    baseDays += 7;
+                }
+                if (mPush.checked) {
+                    basePrice += 5000;
+                    baseDays += 3;
+                }
+
+                // Format outputs
+                const priceMinStr = "₹" + basePrice.toLocaleString('en-IN');
+                const priceMaxStr = "₹" + (basePrice + 10000).toLocaleString('en-IN');
+                
+                const weeksMin = Math.max(1, Math.round(baseDays / 7));
+                const weeksMax = Math.round((baseDays + 5) / 7);
+                
+                mPriceText.innerText = `${priceMinStr} - ${priceMaxStr}`;
+                mTimeText.innerText = `${weeksMin} - ${weeksMax} Weeks`;
+            }
+
+            [mAuth, mOffline, mPayment, mPush].forEach(chk => {
+                chk.addEventListener('change', calculateMobileEstimates);
+            });
+
+            // Initial calculation
+            calculateMobileEstimates();
+
+            // FAQ accordion script
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all
+                    faqItems.forEach(faq => {
+                        faq.classList.remove('active');
+                        faq.querySelector('.faq-answer').style.maxHeight = null;
+                        const icon = faq.querySelector('.faq-icon');
+                        if (icon) icon.style.transform = 'rotate(0deg)';
+                    });
+
+                    if (!isActive) {
+                        item.classList.add('active');
+                        const answer = item.querySelector('.faq-answer');
+                        answer.style.maxHeight = answer.scrollHeight + 50 + "px";
+                        const icon = item.querySelector('.faq-icon');
+                        if (icon) icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
