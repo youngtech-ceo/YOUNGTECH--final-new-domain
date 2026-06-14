@@ -1180,37 +1180,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // ==========================================
-    // 16. SECURITY ANTI-INSPECTION CONTROL
-    // ==========================================
-    document.addEventListener('contextmenu', (e) => e.preventDefault());
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'F12' || e.keyCode === 123) {
-            e.preventDefault();
-        }
-        if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-        }
-        if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-        }
-    });
-
-    // Active anti-debugger loop to freeze inspector
-    setInterval(function() {
-        try {
-            (function debuggerProtection(i) {
-                if (('' + i / i).length !== 1 || i % 20 === 0) {
-                    (function() {}
-                    .constructor('debugger')());
-                } else {
-                    (function() {}
-                    .constructor('debugger')());
-                }
-                debuggerProtection(++i);
-            })(0);
-        } catch (e) {}
-    }, 100);
-
 });
