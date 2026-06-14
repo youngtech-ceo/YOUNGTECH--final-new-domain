@@ -995,14 +995,14 @@ h1, h2, h3, h4, .logo {
 
 /* Footer Section */
 .footer {
-    background: #f1f5f9; /* lighter footer */
+    background: var(--bg-alt); /* supports light and dark modes */
     padding: 4rem 0 2rem;
     border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1.5fr 1fr;
+    grid-template-columns: 2fr 1.2fr 1fr 1.5fr;
     gap: 4rem;
     margin-bottom: 4rem;
 }
@@ -1051,7 +1051,7 @@ h1, h2, h3, h4, .logo {
 .footer-bottom {
     text-align: center;
     padding-top: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05); /* faint border */
+    border-top: 1px solid var(--border-color);
     color: var(--text-muted);
     font-size: 0.9rem;
 }
@@ -2192,6 +2192,15 @@ h1, h2, h3, h4, .logo {
     margin-top: 3rem;
     box-shadow: 0 10px 30px var(--glass-shadow);
 }
+
+.contact-widget {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px var(--glass-shadow);
+    text-align: left;
+}
 .callback-widget h4 {
     font-size: 1.3rem;
     margin-bottom: 0.5rem;
@@ -2431,6 +2440,12 @@ h1, h2, h3, h4, .logo {
     .comparison-table td:nth-child(4) {
         display: none;
     }
+    .contact-widget, .callback-widget {
+        padding: 1.5rem 1.2rem;
+    }
+    .contact-method p {
+        word-break: break-word;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2454,6 +2469,28 @@ h1, h2, h3, h4, .logo {
     }
     .testimonial-card-premium {
         padding: 2rem 1.5rem;
+    }
+    .callback-form-row {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    .callback-form-row button {
+        width: 100%;
+    }
+    .newsletter-form {
+        flex-direction: column !important;
+        max-width: 100% !important;
+    }
+    .newsletter-form input, .newsletter-form button {
+        border-radius: 8px !important;
+        width: 100% !important;
+    }
+    .calendar-card {
+        padding: 1.5rem;
+    }
+    .calendar-day {
+        padding: 0.4rem 0.2rem;
+        font-size: 0.8rem;
     }
 }
 
