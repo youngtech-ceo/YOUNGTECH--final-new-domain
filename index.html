@@ -109,14 +109,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js" defer></script>
     <script src="script.min.js" defer></script>
 </head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-66B9NV3DK8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-66B9NV3DK8');
-</script>
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -640,74 +633,131 @@
         <section id="pricing" class="pricing section alt-bg" style="padding: 120px 0;">
             <div class="container">
                 <div class="section-header text-center">
-                    <div class="badge" style="border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary);">FLEXIBLE PRICING</div>
-                    <h2 class="section-title">Transparent & Scalable <span class="gradient-text">Pricing Matrices</span></h2>
-                    <p class="section-desc" style="margin-bottom: 2rem;">Choose an adaptable plan optimized to accelerate your business goals.</p>
+                    <div class="badge" style="border: 1px solid var(--primary-glow); background: var(--badge-bg); color: var(--primary);">🚀 PROFESSIONAL WEBSITE DEVELOPMENT</div>
+                    <h2 class="section-title">Build Your Online <span class="gradient-text">Presence Today</span></h2>
+                    <p class="section-desc" style="margin-bottom: 2rem;">Choose from our static or dynamic plans focused on business growth.</p>
                 </div>
 
                 <!-- Price Duration Toggle Switch -->
                 <div class="pricing-toggle">
-                    <span class="pricing-toggle-label active" id="label-monthly">SLA Maintenance (Monthly)</span>
+                    <span class="pricing-toggle-label active" id="label-monthly">Static Website Plans</span>
                     <div class="toggle-switch-wrapper" id="pricing-switch" aria-label="Toggle pricing mode">
                         <div class="toggle-switch-dot"></div>
                     </div>
-                    <span class="pricing-toggle-label" id="label-project">Full Product Development (Project-based)</span>
+                    <span class="pricing-toggle-label" id="label-project">Dynamic Website Plans</span>
                 </div>
 
-                <div class="pricing-grid">
-                    <!-- Starter Plan -->
+                <div class="pricing-grid" id="pricing-monthly-grid">
+                    <!-- Static Starter Plan -->
                     <div class="price-card">
                         <div class="price-header">
-                            <h3>Starter</h3>
-                            <div class="price-amount" id="starter-price">₹6,999<span style="font-size:1.2rem;color:var(--text-muted); font-weight:500;">/mo</span></div>
-                            <p>Perfect for startups requiring essential digital architectures.</p>
+                            <h3>Starter Plan</h3>
+                            <div class="price-amount">₹7,000</div>
+                            <p>Perfect for startups requiring a clean online footprint.</p>
                         </div>
                         <ul class="price-features">
-                            <li><i data-lucide="check-circle-2"></i> Premium Responsive Website</li>
-                            <li><i data-lucide="check-circle-2"></i> Technical Core SEO Audits</li>
-                            <li><i data-lucide="check-circle-2"></i> 1 Month Post-Launch SLA</li>
-                            <li><i data-lucide="check-circle-2"></i> Integrated WhatsApp Callback</li>
-                            <li style="opacity: 0.4;"><i data-lucide="x-circle" style="color:var(--text-muted);"></i> Advanced SQL DB Setup</li>
-                            <li style="opacity: 0.4;"><i data-lucide="x-circle" style="color:var(--text-muted);"></i> Proprietary AI Agents</li>
+                            <li><i data-lucide="check-circle-2"></i> Mobile Responsive</li>
+                            <li><i data-lucide="check-circle-2"></i> SEO Friendly</li>
+                            <li><i data-lucide="check-circle-2"></i> Fast Loading</li>
+                            <li><i data-lucide="check-circle-2"></i> WhatsApp Integration</li>
+                            <li><i data-lucide="check-circle-2"></i> Professional Design</li>
+                            <li style="opacity: 0.4;"><i data-lucide="x-circle" style="color:var(--text-muted);"></i> Business Growth Focused</li>
                         </ul>
-                        <a href="#contact" class="btn-outline w-full" style="cursor: pointer;">Get Starter Package</a>
+                        <a href="#contact" class="btn-outline w-full" style="cursor: pointer;">Get Starter Plan</a>
                     </div>
 
-                    <!-- Professional Plan (Recommended) -->
+                    <!-- Static Business Plan (Recommended) -->
                     <div class="price-card popular">
                         <div class="popular-badge">Recommended Tier</div>
                         <div class="price-header">
-                            <h3>Professional</h3>
-                            <div class="price-amount" id="pro-price">₹19,999<span style="font-size:1.2rem;color:rgba(255,255,255,0.6); font-weight:500;">/mo</span></div>
-                            <p>Ideal for expanding companies looking to automate client transactions.</p>
+                            <h3>Business Plan</h3>
+                            <div class="price-amount">₹15,000</div>
+                            <p>Ideal for expanding companies looking to showcase their services.</p>
                         </div>
                         <ul class="price-features">
-                            <li><i data-lucide="check-circle-2"></i> Custom Web/App System</li>
-                            <li><i data-lucide="check-circle-2"></i> Advanced Dynamic Animations</li>
-                            <li><i data-lucide="check-circle-2"></i> Relational SQL/NoSQL DB</li>
-                            <li><i data-lucide="check-circle-2"></i> 6 Months Priority SLA Support</li>
-                            <li><i data-lucide="check-circle-2"></i> Complete SEO Schema Scripts</li>
-                            <li style="opacity: 0.4;"><i data-lucide="x-circle" style="color:var(--text-muted);"></i> custom ESP32 IoT Nodes</li>
+                            <li><i data-lucide="check-circle-2"></i> Mobile Responsive</li>
+                            <li><i data-lucide="check-circle-2"></i> SEO Friendly</li>
+                            <li><i data-lucide="check-circle-2"></i> Fast Loading</li>
+                            <li><i data-lucide="check-circle-2"></i> WhatsApp Integration</li>
+                            <li><i data-lucide="check-circle-2"></i> Professional Design</li>
+                            <li><i data-lucide="check-circle-2"></i> Business Growth Focused</li>
                         </ul>
-                        <a href="#contact" class="btn-primary w-full" style="cursor: pointer;">Get Professional Package</a>
+                        <a href="#contact" class="btn-primary w-full" style="cursor: pointer;">Get Business Plan</a>
                     </div>
 
-                    <!-- Enterprise Plan -->
+                    <!-- Static Premium Plan -->
                     <div class="price-card">
                         <div class="price-header">
-                            <h3>Enterprise</h3>
-                            <div class="price-amount" id="enterprise-price">₹49,999<span style="font-size:1.2rem;color:var(--text-muted); font-weight:500;">/mo</span></div>
-                            <p>Engineered for complex smart hardware & conversational AI needs.</p>
+                            <h3>Premium Plan</h3>
+                            <div class="price-amount">₹21,500</div>
+                            <p>Engineered for brands requiring high-impact custom landing portals.</p>
                         </div>
                         <ul class="price-features">
-                            <li><i data-lucide="check-circle-2"></i> Full Distributed Architecture</li>
-                            <li><i data-lucide="check-circle-2"></i> Smart ESP32/Pi IoT Systems</li>
-                            <li><i data-lucide="check-circle-2"></i> Custom RAG-based AI Agents</li>
-                            <li><i data-lucide="check-circle-2"></i> 24/7 Dedicated Developer SLA</li>
-                            <li><i data-lucide="check-circle-2"></i> Automated Cloud DB Backups</li>
-                            <li><i data-lucide="check-circle-2"></i> Priority WhatsApp Direct Group</li>
+                            <li><i data-lucide="check-circle-2"></i> Mobile Responsive</li>
+                            <li><i data-lucide="check-circle-2"></i> SEO Friendly</li>
+                            <li><i data-lucide="check-circle-2"></i> Fast Loading</li>
+                            <li><i data-lucide="check-circle-2"></i> WhatsApp Integration</li>
+                            <li><i data-lucide="check-circle-2"></i> Premium UI Design</li>
+                            <li><i data-lucide="check-circle-2"></i> Business Growth Focused</li>
                         </ul>
-                        <a href="#contact" class="btn-outline w-full" style="cursor: pointer;">Request Custom SLA</a>
+                        <a href="#contact" class="btn-outline w-full" style="cursor: pointer;">Get Premium Plan</a>
+                    </div>
+                </div>
+
+                <div class="pricing-grid" id="pricing-project-grid" style="display: none;">
+                    <!-- Starter Dynamic Plan -->
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>Starter Dynamic</h3>
+                            <div class="price-amount">₹12,000</div>
+                            <p>Perfect for startups requiring a dynamic website with essential controls.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i data-lucide="check-circle-2"></i> Admin Dashboard</li>
+                            <li><i data-lucide="check-circle-2"></i> Dynamic Content Management</li>
+                            <li><i data-lucide="check-circle-2"></i> Contact & Inquiry Management</li>
+                            <li><i data-lucide="check-circle-2"></i> Mobile Responsive Design</li>
+                            <li><i data-lucide="check-circle-2"></i> SEO Friendly</li>
+                            <li><i data-lucide="check-circle-2"></i> WhatsApp Integration</li>
+                        </ul>
+                        <a href="#contact" class="btn-outline w-full" style="cursor: pointer;">Get Starter Dynamic</a>
+                    </div>
+
+                    <!-- Business Dynamic Plan (Recommended) -->
+                    <div class="price-card popular">
+                        <div class="popular-badge">Recommended Tier</div>
+                        <div class="price-header">
+                            <h3>Business Dynamic</h3>
+                            <div class="price-amount">₹20,000</div>
+                            <p>Ideal for expanding brands needing multiple interactive sections.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i data-lucide="check-circle-2"></i> Advanced Admin Panel</li>
+                            <li><i data-lucide="check-circle-2"></i> Multiple Dynamic Sections</li>
+                            <li><i data-lucide="check-circle-2"></i> SEO Optimization</li>
+                            <li><i data-lucide="check-circle-2"></i> Analytics Integration</li>
+                            <li><i data-lucide="check-circle-2"></i> WhatsApp Integration</li>
+                            <li><i data-lucide="check-circle-2"></i> Business Growth Focused</li>
+                        </ul>
+                        <a href="#contact" class="btn-primary w-full" style="cursor: pointer;">Get Business Dynamic</a>
+                    </div>
+
+                    <!-- Enterprise Dynamic Plan -->
+                    <div class="price-card">
+                        <div class="price-header">
+                            <h3>Enterprise Dynamic</h3>
+                            <div class="price-amount">₹45,000</div>
+                            <p>Bespoke portals engineered with secure accounts and full DB setups.</p>
+                        </div>
+                        <ul class="price-features">
+                            <li><i data-lucide="check-circle-2"></i> Custom Features</li>
+                            <li><i data-lucide="check-circle-2"></i> User Login System</li>
+                            <li><i data-lucide="check-circle-2"></i> Database Management</li>
+                            <li><i data-lucide="check-circle-2"></i> Advanced Security</li>
+                            <li><i data-lucide="check-circle-2"></i> API Integrations</li>
+                            <li><i data-lucide="check-circle-2"></i> Premium Support</li>
+                        </ul>
+                        <a href="#contact" class="btn-outline w-full" style="cursor: pointer;">Get Enterprise Dynamic</a>
                     </div>
                 </div>
 
@@ -770,7 +820,7 @@
                             <i data-lucide="chevron-down" class="faq-icon"></i>
                         </button>
                         <div class="faq-answer">
-                            <p>Yes, we support our partners through dedicated monthly Service Level Agreements (SLAs) starting at ₹6,999/mo. Our SLAs cover security updates, automated database backups, speed audits, new feature iterations, and a priority communication loop via WhatsApp or phone callback support.</p>
+                            <p>Yes, we support our partners through dedicated monthly maintenance and Service Level Agreements (SLAs). Our support covers security updates, automated database backups, speed audits, new feature iterations, and a priority communication loop via WhatsApp or phone callback support.</p>
                         </div>
                     </div>
                 </div>

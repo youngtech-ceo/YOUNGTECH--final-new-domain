@@ -468,9 +468,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelMonthly = document.getElementById('label-monthly');
     const labelProject = document.getElementById('label-project');
 
-    const starterPrice = document.getElementById('starter-price');
-    const proPrice = document.getElementById('pro-price');
-    const enterprisePrice = document.getElementById('enterprise-price');
+    const pricingMonthlyGrid = document.getElementById('pricing-monthly-grid');
+    const pricingProjectGrid = document.getElementById('pricing-project-grid');
 
     if (pricingSwitch) {
         pricingSwitch.addEventListener('click', () => {
@@ -481,18 +480,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 labelMonthly.classList.remove('active');
                 labelProject.classList.add('active');
                 
-                // Show Project pricing (INR)
-                starterPrice.innerHTML = '₹14,999<span style="font-size:1.2rem;color:var(--text-muted);font-weight:500;">/project</span>';
-                proPrice.innerHTML = '₹39,999<span style="font-size:1.2rem;color:rgba(255,255,255,0.6);font-weight:500;">/project</span>';
-                enterprisePrice.innerHTML = '₹89,999<span style="font-size:1.2rem;color:var(--text-muted);font-weight:500;">/project</span>';
+                if (pricingMonthlyGrid) pricingMonthlyGrid.style.display = 'none';
+                if (pricingProjectGrid) pricingProjectGrid.style.display = 'grid';
             } else {
                 labelMonthly.classList.add('active');
                 labelProject.classList.remove('active');
                 
-                // Show Monthly Support SLA pricing
-                starterPrice.innerHTML = '₹6,999<span style="font-size:1.2rem;color:var(--text-muted);font-weight:500;">/mo</span>';
-                proPrice.innerHTML = '₹19,999<span style="font-size:1.2rem;color:rgba(255,255,255,0.6);font-weight:500;">/mo</span>';
-                enterprisePrice.innerHTML = '₹49,999<span style="font-size:1.2rem;color:var(--text-muted);font-weight:500;">/mo</span>';
+                if (pricingMonthlyGrid) pricingMonthlyGrid.style.display = 'grid';
+                if (pricingProjectGrid) pricingProjectGrid.style.display = 'none';
             }
         });
     }
