@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-        window.addEventListener('error', function(e) {
+        function showBanner(msg) {
             const errorDiv = document.createElement('div');
             errorDiv.style.position = 'fixed';
             errorDiv.style.top = '0';
@@ -16,8 +16,14 @@
             errorDiv.style.zIndex = '999999';
             errorDiv.style.fontFamily = 'monospace';
             errorDiv.style.fontSize = '0.9rem';
-            errorDiv.innerHTML = '<strong>JS Error:</strong> ' + e.message + ' at ' + e.filename + ':' + e.lineno + ':' + e.colno;
+            errorDiv.innerHTML = msg;
             document.body.appendChild(errorDiv);
+        }
+        window.addEventListener('error', function(e) {
+            showBanner('<strong>JS Error:</strong> ' + e.message + ' at ' + e.filename + ':' + e.lineno + ':' + e.colno);
+        });
+        window.addEventListener('unhandledrejection', function(e) {
+            showBanner('<strong>Promise Rejection:</strong> ' + e.reason);
         });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
