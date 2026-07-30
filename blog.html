@@ -3,6 +3,23 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        window.addEventListener('error', function(e) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.position = 'fixed';
+            errorDiv.style.top = '0';
+            errorDiv.style.left = '0';
+            errorDiv.style.width = '100%';
+            errorDiv.style.background = '#ef4444';
+            errorDiv.style.color = '#fff';
+            errorDiv.style.padding = '1rem';
+            errorDiv.style.zIndex = '999999';
+            errorDiv.style.fontFamily = 'monospace';
+            errorDiv.style.fontSize = '0.9rem';
+            errorDiv.innerHTML = '<strong>JS Error:</strong> ' + e.message + ' at ' + e.filename + ':' + e.lineno + ':' + e.colno;
+            document.body.appendChild(errorDiv);
+        });
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Primary SEO Metadata -->
