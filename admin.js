@@ -674,6 +674,152 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Firebase Orders Error:", error);
         });
 
+        // --- Blog Posts CRUD Logic ---
+        const blogsRef = database.ref('posts');
+        const blogsBody = document.getElementById('blogs-body');
+        const blogFormContainer = document.getElementById('blog-form-container');
+        const blogForm = document.getElementById('blog-form');
+        const addBlogBtn = document.getElementById('add-blog-btn');
+        const cancelBlogBtn = document.getElementById('cancel-blog-btn');
+
+        if (addBlogBtn) {
+            addBlogBtn.addEventListener('click', () => {
+                blogForm.reset();
+                document.getElementById('blog-id').value = '';
+                document.getElementById('blog-form-title').innerText = 'Add New Blog Post';
+                document.getElementById('blog-author').value = 'Rithish V'; // default
+                blogFormContainer.style.display = 'block';
+            });
+        }
+
+        if (cancelBlogBtn) {
+            cancelBlogBtn.addEventListener('click', () => {
+                blogFormContainer.style.display = 'none';
+                blogForm.reset();
+            });
+        }
+
+        if (blogForm) {
+            blogForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('blog-id').value;
+                
+                // Format the current date nicely
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = new Date().toLocaleDateString('en-US', options);
+
+                const blogData = {
+                    title: document.getElementById('blog-title').value.trim(),
+                    category: document.getElementById('blog-category').value,
+                    author: document.getElementById('blog-author').value.trim(),
+                    readTime: document.getElementById('blog-read-time').value.trim(),
+                    coverImg: document.getElementById('blog-img').value.trim(),
+                    tags: document.getElementById('blog-tags').value.trim(),
+                    summary: document.getElementById('blog-summary').value.trim(),
+                    content: document.getElementById('blog-content').value.trim(),
+                    date: formattedDate,
+                    timestamp: Date.now()
+                };
+
+                if (id) {
+                    // Update existing post
+                    blogsRef.child(id).update(blogData)
+                        .then(() => {
+                            alert('Blog post updated successfully!');
+                            blogFormContainer.style.display = 'none';
+                            blogForm.reset();
+                        })
+                        .catch(err => alert('Error updating blog post: ' + err.message));
+                } else {
+                    // Create new post
+                    blogsRef.push().set(blogData)
+                        .then(() => {
+                            alert('Blog post published successfully!');
+                            blogFormContainer.style.display = 'none';
+                            blogForm.reset();
+                        })
+                        .catch(err => alert('Error publishing blog post: ' + err.message));
+                }
+            });
+        }
+
+        blogsRef.on('value', (snapshot) => {
+            if (!blogsBody) return;
+            blogsBody.innerHTML = '';
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                let htmlStr = '';
+                Object.keys(data).reverse().forEach(key => {
+                    const post = data[key];
+                    if (!post) return;
+                    
+                    htmlStr += `
+                        <tr>
+                            <td><img src="${post.coverImg || '1.JPG'}" alt="${post.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;"></td>
+                            <td>
+                                <strong style="color: var(--text-main); font-size: 1.05rem;">${post.title}</strong>
+                                <span style="background:var(--primary); color:#fff; font-size:0.7rem; font-weight:700; padding:0.15rem 0.4rem; border-radius:4px; margin-left:0.5rem; display:inline-block; line-height:1.2;">${post.category || 'Tech'}</span><br>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">${post.summary ? post.summary.substring(0, 80) + (post.summary.length > 80 ? '...' : '') : ''}</span>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.88rem; font-weight:600; color: var(--text-main);">${post.author || 'Rithish V'}</span><br>
+                                <span style="font-size: 0.8rem; color: var(--text-muted);">${post.date || ''}</span>
+                            </td>
+                            <td>
+                                <button class="edit-blog btn-primary" data-id="${key}" style="padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.8rem; margin-right: 0.5rem; cursor:pointer; background: var(--primary); border:none;"
+                                    data-title="${post.title || ''}" 
+                                    data-category="${post.category || ''}" 
+                                    data-author="${post.author || ''}" 
+                                    data-readtime="${post.readTime || ''}" 
+                                    data-img="${post.coverImg || ''}" 
+                                    data-tags="${post.tags || ''}"
+                                    data-summary="${post.summary || ''}"
+                                    data-content="${post.content || ''}">Edit</button>
+                                <button class="btn-danger delete-blog" data-id="${key}">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                blogsBody.innerHTML = htmlStr;
+
+                // Bind Edit Blog Click Events
+                document.querySelectorAll('.edit-blog').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.target.getAttribute('data-id');
+                        document.getElementById('blog-id').value = id;
+                        document.getElementById('blog-title').value = e.target.getAttribute('data-title');
+                        document.getElementById('blog-category').value = e.target.getAttribute('data-category');
+                        document.getElementById('blog-author').value = e.target.getAttribute('data-author');
+                        document.getElementById('blog-read-time').value = e.target.getAttribute('data-readtime');
+                        document.getElementById('blog-img').value = e.target.getAttribute('data-img');
+                        document.getElementById('blog-tags').value = e.target.getAttribute('data-tags');
+                        document.getElementById('blog-summary').value = e.target.getAttribute('data-summary');
+                        document.getElementById('blog-content').value = e.target.getAttribute('data-content');
+                        
+                        document.getElementById('blog-form-title').innerText = 'Edit Blog Post';
+                        blogFormContainer.style.display = 'block';
+                        document.getElementById('blogs').scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+
+                // Bind Delete Blog Click Events
+                document.querySelectorAll('.delete-blog').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        if(confirm('Are you absolutely sure you want to delete this blog post?')) {
+                            blogsRef.child(e.target.getAttribute('data-id')).remove()
+                                .then(() => alert('Blog post deleted.'))
+                                .catch(err => alert('Error: ' + err.message));
+                        }
+                    });
+                });
+            } else {
+                blogsBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 2rem;">No blog posts found. Click "Add Post" to write one.</td></tr>';
+            }
+        }, (error) => {
+            blogsBody.innerHTML = `<tr><td colspan="4" style="color:#ef4444; font-weight:bold; padding: 2rem;">Firebase Error: ${error.message}</td></tr>`;
+            console.error("Firebase Blogs Error:", error);
+        });
+
         // --- Admin Navigation Tabs Logic ---
         const tabs = document.querySelectorAll('.admin-sidebar a[href^="#"]');
         const sections = document.querySelectorAll('.admin-card');

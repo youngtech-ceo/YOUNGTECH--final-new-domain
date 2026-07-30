@@ -127,9 +127,11 @@
             <a href="#bookings"><i data-lucide="calendar"></i> Bookings</a>
             <a href="#projects"><i data-lucide="briefcase"></i> Projects</a>
             <a href="#orders"><i data-lucide="package"></i> Track Orders</a>
+            <a href="#blogs"><i data-lucide="book-open"></i> Blog Posts</a>
             <a href="#subscribers"><i data-lucide="users"></i> Subscribers</a>
+            <a href="finance.html" style="border: 1px solid var(--border-color); margin-top: 2rem; background: rgba(99, 102, 241, 0.05); color: var(--primary);"><i data-lucide="bar-chart-3"></i> Finance Panel</a>
             
-            <div style="margin-top: 5rem; text-align: center;">
+            <div style="margin-top: 3rem; text-align: center;">
                 <a href="index.html" class="btn-outline w-full" style="justify-content: center;"><i data-lucide="arrow-left"></i> Live Site</a>
             </div>
         </aside>
@@ -392,6 +394,88 @@
                         </thead>
                         <tbody id="orders-body">
                             <tr><td colspan="5">Loading tracking orders...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Blog Posts Section -->
+            <section id="blogs" class="admin-card" style="display:none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Blog Posts</h2>
+                    <button id="add-blog-btn" class="btn-primary" style="padding: 0.5rem 1rem; border-radius: 8px;">
+                        <i data-lucide="plus"></i> Add Post
+                    </button>
+                </div>
+                
+                <!-- Add/Edit Blog Form -->
+                <div id="blog-form-container" style="display: none; background: rgba(0,0,0,0.02); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                    <h3 id="blog-form-title" style="margin-bottom: 1rem;">Add New Blog Post</h3>
+                    <form id="blog-form">
+                        <input type="hidden" id="blog-id">
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Post Title</label>
+                                <input type="text" id="blog-title" required placeholder="e.g. Navigating the Future of Web Apps" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Category</label>
+                                <select id="blog-category" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: #fff;">
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="Web Dev">Web Development</option>
+                                    <option value="Mobile Apps">Mobile Apps</option>
+                                    <option value="Tech Insights">Tech Insights</option>
+                                    <option value="AI & Cloud">AI & Cloud</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Author</label>
+                                <input type="text" id="blog-author" required value="Rithish V" placeholder="e.g. Rithish V" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Read Time (e.g. 5 min read)</label>
+                                <input type="text" id="blog-read-time" required placeholder="e.g. 4 min read" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Cover Image URL</label>
+                                <input type="url" id="blog-img" required placeholder="https://images.unsplash.com/... or relative path" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Tags (Comma separated)</label>
+                                <input type="text" id="blog-tags" placeholder="e.g. Nextjs, UX, Performance" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label style="font-weight: 600; font-size: 0.9rem;">Short Summary (Plain text, for grid cards)</label>
+                            <textarea id="blog-summary" rows="2" required placeholder="A brief hook to capture reader interest in the card grid..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;"></textarea>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="font-weight: 600; font-size: 0.9rem;">Full Content (Supports HTML, paragraphs, lists, links)</label>
+                            <textarea id="blog-content" rows="12" required placeholder="Write your full article here. Use <p>, <h3>, <strong> tags for rich styling." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; font-family: monospace;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.2rem; border-radius: 8px; border:none; cursor:pointer;">Save Post</button>
+                            <button type="button" id="cancel-blog-btn" class="btn-outline" style="padding: 0.6rem 1.2rem; border-radius: 8px; cursor:pointer;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Cover</th>
+                                <th>Title & Category</th>
+                                <th>Author & Date</th>
+                                <th style="min-width: 150px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="blogs-body">
+                            <tr><td colspan="4">Loading blog posts...</td></tr>
                         </tbody>
                     </table>
                 </div>

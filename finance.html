@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance & Report Panel | Young Technology</title>
+    <link rel="stylesheet" href="style.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Custom Styling for Standalone Finance Panel */
+        :root {
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+        }
+color : the folowing detailw 
+        body {
+            font-family: var(--font-body);
+            background: #03050a;
+            color: var(--text-main);
+        }
+
+        .finance-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .finance-sidebar {
+            background: #070a14;
+            border-right: 1px solid var(--border-color);
+            padding: 2.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .sidebar-brand {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .sidebar-brand a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .sidebar-brand img {
+            height: 36px;
+            border-radius: 8px;
+        }
+
+        .sidebar-brand span {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 1px;
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.2rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .sidebar-nav a:hover, .sidebar-nav a.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            box-shadow: inset 3px 0 0 var(--primary);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .btn-sidebar-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* Content Pane */
+        .finance-content {
+            padding: 2.5rem 3.5rem;
+            overflow-y: auto;
+            max-height: 100vh;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-title h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .date-display {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* KPI Cards Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .kpi-revenue::after { background: var(--primary); }
+        .kpi-expenditure::after { background: var(--danger); }
+        .kpi-profit::after { background: var(--success); }
+        .kpi-margin::after { background: var(--info); }
+        .kpi-pending::after { background: var(--warning); }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.8rem;
+        }
+
+        .kpi-icon {
+            padding: 0.4rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-revenue .kpi-icon { background: rgba(99, 102, 241, 0.1); color: var(--primary); }
+        .kpi-expenditure .kpi-icon { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .kpi-profit .kpi-icon { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .kpi-margin .kpi-icon { background: rgba(6, 182, 212, 0.1); color: var(--info); }
+        .kpi-pending .kpi-icon { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .kpi-meta {
+            font-size: 0.78rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Charts Grid */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            backdrop-filter: blur(10px);
+            min-height: 400px;
+        }
+
+        .chart-card h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 3rem);
+            min-height: 300px;
+        }
+
+        /* Finance Sections & Cards */
+        .finance-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 32px var(--glass-shadow);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-header-actions h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select, .search-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .filter-select:focus, .search-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding-left: 2.5rem;
+            min-width: 250px;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Buttons styling overrides */
+        .btn-action-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.7rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.25);
+        }
+
+        .btn-action-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-action-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.7rem 1.4rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .btn-action-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+        }
+
+        /* Forms Layout */
+        .panel-form-container {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            display: none;
+            animation: slideDown 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-form-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group-full {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1.1rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            background: rgba(5, 7, 15, 0.4);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background: rgba(5, 7, 15, 0.7);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.15);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        /* Custom Dropdown Linking Style */
+        .linker-alert {
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.88rem;
+            color: #c7d2fe;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* Tables & Lists */
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .finance-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .finance-table th {
+            padding: 1.2rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .finance-table td {
+            padding: 1.2rem 1rem;
+            font-size: 0.93rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        .finance-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .finance-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-success { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .badge-warning { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-danger { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .badge-info { background: rgba(6, 182, 212, 0.12); color: var(--info); border: 1px solid rgba(6, 182, 212, 0.2); }
+
+        .btn-table-action {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0.35rem;
+            border-radius: 6px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-table-edit {
+            color: var(--primary);
+        }
+
+        .btn-table-edit:hover {
+            background: rgba(99, 102, 241, 0.12);
+        }
+
+        .btn-table-delete {
+            color: var(--danger);
+        }
+
+        .btn-table-delete:hover {
+            background: rgba(239, 68, 68, 0.12);
+        }
+
+        /* P&L Statement Grid */
+        .pl-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+
+        .pl-metric {
+            text-align: center;
+        }
+
+        .pl-metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .pl-metric-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+        }
+
+        /* Print styling overrides */
+        @media print {
+            .finance-sidebar, .content-header, .panel-form-container, .section-header-actions .btn-action-primary, .btn-action-secondary, .btn-table-action, .filter-bar, .sidebar-footer {
+                display: none !important;
+            }
+            
+            .finance-layout {
+                display: block !important;
+            }
+
+            .finance-content {
+                padding: 0 !important;
+                max-height: none !important;
+                overflow-y: visible !important;
+            }
+
+            .finance-section {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                background: white !important;
+                color: black !important;
+            }
+
+            .finance-table th, .finance-table td {
+                color: black !important;
+                border-bottom: 1px solid #ddd !important;
+            }
+
+            .kpi-grid {
+                grid-template-columns: repeat(5, 1fr) !important;
+                gap: 10px !important;
+            }
+
+            .kpi-card {
+                background: #f8f9fa !important;
+                color: black !important;
+                border: 1px solid #ccc !important;
+            }
+
+            .kpi-value {
+                color: black !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Security Gateway Access Overlay -->
+    <div id="finance-auth-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #030509; display: flex; align-items: center; justify-content: center; z-index: 999999; backdrop-filter: blur(25px);">
+        <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 28px; padding: 3.5rem; width: 90%; max-width: 460px; text-align: center; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6); position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));"></div>
+            
+            <div style="width: 72px; height: 72px; border-radius: 50%; background: rgba(99, 102, 241, 0.08); border: 1px solid rgba(99, 102, 241, 0.15); display: flex; align-items: center; justify-content: center; color: var(--primary); margin: 0 auto 1.5rem;">
+                <i data-lucide="lock-keyhole" style="width: 32px; height: 32px;"></i>
+            </div>
+            <h2 style="font-family: var(--font-heading); color: #f8fafc; font-size: 1.85rem; font-weight: 700; margin-bottom: 0.5rem;">Financial Gateway</h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 2.2rem; line-height: 1.6;">Authorized company personnel only. Provide credentials to view payments, company expenditures, and profit reports.</p>
+            
+            <form id="finance-login-form" style="display: flex; flex-direction: column; gap: 1.2rem; text-align: left;">
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label for="finance-email" class="form-label" style="margin-bottom: 0;">Authorized Email</label>
+                    <input type="email" id="finance-email" placeholder="rithishv1303@gmail.com" required style="padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.01); color: #f8fafc; font-size: 0.95rem; outline: none; transition: all 0.3s; width: 100%;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.5rem;">
+                    <label for="finance-password" class="form-label" style="margin-bottom: 0;">Security Passcode</label>
+                    <input type="password" id="finance-password" placeholder="••••••••••••" required style="padding: 0.9rem 1.1rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.08); background: rgba(255, 255, 255, 0.01); color: #f8fafc; font-size: 1.05rem; letter-spacing: 2px; text-align: center; outline: none; transition: all 0.3s; width: 100%;">
+                </div>
+                <button type="submit" id="finance-login-btn" style="width: 100%; padding: 1rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; font-weight: 700; font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.3s; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);">
+                    Unlock Securely <i data-lucide="unlocked" style="width: 18px; height: 18px;"></i>
+                </button>
+            </form>
+            <p id="finance-auth-error" style="display: none; margin-top: 1.5rem; color: var(--danger); font-size: 0.9rem; font-weight: 600; line-height: 1.5;"></p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Layout -->
+    <div class="finance-layout" id="finance-dashboard" style="display: none;">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="finance-sidebar">
+            <div class="sidebar-brand">
+                <a href="index.html">
+                    <img src="https://i.ibb.co/XxWfnk7C/Y-20240920-210022-0000.png" alt="Young Technology Logo">
+                    <span>YT FINANCE</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#overview" class="active" id="nav-overview"><i data-lucide="layout-dashboard"></i> Overview</a>
+                <a href="#sales" id="nav-sales"><i data-lucide="dollar-sign"></i> Project Sales</a>
+                <a href="#expenditures" id="nav-expenditures"><i data-lucide="trending-down"></i> Expenditures</a>
+                <a href="#reports" id="nav-reports"><i data-lucide="file-bar-chart"></i> Reports & Exports</a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="index.html" class="btn-sidebar-action" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); color: var(--text-muted);"><i data-lucide="arrow-left"></i> Live Site</a>
+                <a href="admin.html" class="btn-sidebar-action" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); color: var(--text-muted);"><i data-lucide="sliders"></i> Admin Panel</a>
+                <button id="finance-logout-btn" class="btn-sidebar-action" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.15); color: var(--danger);"><i data-lucide="log-out"></i> Secure Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="finance-content">
+            
+            <!-- Content Header -->
+            <header class="content-header">
+                <div class="header-title">
+                    <h1 id="current-section-title">Finance <span class="gradient-text">Overview</span></h1>
+                </div>
+                <div class="header-meta">
+                    <div class="date-display">
+                        <i data-lucide="calendar"></i>
+                        <span id="header-date-string">Loading...</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- KPI Cards Row -->
+            <div class="kpi-grid">
+                <div class="kpi-card kpi-revenue">
+                    <div class="kpi-header">
+                        <span>Total Revenue</span>
+                        <div class="kpi-icon"><i data-lucide="arrow-up-right"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-total-revenue">₹0.00</div>
+                    <div class="kpi-meta" style="color: var(--success);"><i data-lucide="plus-circle" style="width:12px;"></i> Payouts received</div>
+                </div>
+                
+                <div class="kpi-card kpi-expenditure">
+                    <div class="kpi-header">
+                        <span>Expenditure</span>
+                        <div class="kpi-icon"><i data-lucide="arrow-down-left"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-total-expenses">₹0.00</div>
+                    <div class="kpi-meta" style="color: var(--danger);"><i data-lucide="minus-circle" style="width:12px;"></i> Total business cost</div>
+                </div>
+                
+                <div class="kpi-card kpi-profit">
+                    <div class="kpi-header">
+                        <span>Net Profit</span>
+                        <div class="kpi-icon"><i data-lucide="wallet"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-net-profit">₹0.00</div>
+                    <div class="kpi-meta" id="kpi-profit-trend" style="color: var(--success);"><i data-lucide="trending-up" style="width:12px;"></i> Realized profit</div>
+                </div>
+                
+                <div class="kpi-card kpi-margin">
+                    <div class="kpi-header">
+                        <span>Profit Margin</span>
+                        <div class="kpi-icon"><i data-lucide="percent"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-profit-margin">0.0%</div>
+                    <div class="kpi-meta" style="color: var(--info);"><i data-lucide="sparkles" style="width:12px;"></i> Performance ratio</div>
+                </div>
+                
+                <div class="kpi-card kpi-pending">
+                    <div class="kpi-header">
+                        <span>Accounts Receivable</span>
+                        <div class="kpi-icon"><i data-lucide="clock"></i></div>
+                    </div>
+                    <div class="kpi-value" id="kpi-pending-payments">₹0.00</div>
+                    <div class="kpi-meta" style="color: var(--warning);"><i data-lucide="alert-circle" style="width:12px;"></i> Uncollected bills</div>
+                </div>
+            </div>
+
+            <!-- SECTION 1: OVERVIEW & ANALYTICS -->
+            <div id="section-overview">
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h2><i data-lucide="bar-chart-3" style="color: var(--primary);"></i> Revenue vs Expenditure Trend</h2>
+                        <div class="chart-container">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h2><i data-lucide="pie-chart" style="color: var(--secondary);"></i> Expense Allocation</h2>
+                        <div class="chart-container">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="chart-card" style="min-height: 350px;">
+                        <h2><i data-lucide="donut" style="color: var(--accent);"></i> Income by Project Category</h2>
+                        <div class="chart-container" style="min-height: 250px;">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card" style="min-height: 350px;">
+                        <h2><i data-lucide="activity" style="color: var(--success);"></i> Payment Status</h2>
+                        <div class="chart-container" style="min-height: 250px;">
+                            <canvas id="statusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2: PROJECT SALES & PAYMENTS -->
+            <div id="section-sales" style="display: none;">
+                <div class="finance-section">
+                    <div class="section-header-actions">
+                        <h2><i data-lucide="banknote" style="color: var(--primary);"></i> Project Payment Records</h2>
+                        <div class="filter-bar">
+                            <div class="search-container">
+                                <i data-lucide="search"></i>
+                                <input type="text" id="sales-search" class="search-input" placeholder="Search customer, project...">
+                            </div>
+                            <select id="sales-status-filter" class="filter-select">
+                                <option value="all">All Statuses</option>
+                                <option value="paid">Fully Paid</option>
+                                <option value="partially">Partially Paid</option>
+                                <option value="unpaid">Unpaid</option>
+                            </select>
+                            <button id="add-payment-btn" class="btn-action-primary"><i data-lucide="plus-circle"></i> Add Payment</button>
+                        </div>
+                    </div>
+
+                    <!-- Payment Add/Edit Form -->
+                    <div id="payment-form-container" class="panel-form-container">
+                        <h3 id="payment-form-title" class="panel-form-title">Record Project Payment</h3>
+                        
+                        <div class="linker-alert">
+                            <i data-lucide="link"></i>
+                            <div>
+                                <strong>Smart CRM Linker</strong>: Select an active project tracking order below to automatically populate the client and project details.
+                            </div>
+                        </div>
+
+                        <form id="payment-form">
+                            <input type="hidden" id="payment-db-id">
+                            
+                            <div class="form-grid-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-order-link">Link to Tracking Order</label>
+                                    <select id="payment-order-link" class="form-control">
+                                        <option value="">-- Standalone (No Order Link) --</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-client-name">Client Name</label>
+                                    <input type="text" id="payment-client-name" class="form-control" required placeholder="e.g. John Doe">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-project-name">Project Name</label>
+                                    <input type="text" id="payment-project-name" class="form-control" required placeholder="e.g. Custom E-Commerce">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-project-type">Project Type</label>
+                                    <select id="payment-project-type" class="form-control" required>
+                                        <option value="web">Web Development</option>
+                                        <option value="app">Mobile App Development</option>
+                                        <option value="other">Other Service</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-contract-value">Contract Value (₹)</label>
+                                    <input type="number" id="payment-contract-value" class="form-control" min="0" required placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-amount-paid">Amount Received (₹)</label>
+                                    <input type="number" id="payment-amount-paid" class="form-control" min="0" required placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-expenses">Associated Project Cost (₹)</label>
+                                    <input type="number" id="payment-expenses" class="form-control" min="0" required placeholder="0 (developer payouts, APIs)">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-method">Payment Method</label>
+                                    <select id="payment-method" class="form-control" required>
+                                        <option value="Bank Transfer">Bank Transfer</option>
+                                        <option value="UPI / GPay">UPI / GPay</option>
+                                        <option value="Credit Card">Credit Card</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Cheque">Cheque</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-status">Payment Status</label>
+                                    <select id="payment-status" class="form-control" required>
+                                        <option value="paid">Fully Paid</option>
+                                        <option value="partially">Partially Paid</option>
+                                        <option value="unpaid">Unpaid</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-date">Payment / Invoice Date</label>
+                                    <input type="date" id="payment-date" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="payment-due-date">Payment Due Date (if unpaid/partial)</label>
+                                    <input type="date" id="payment-due-date" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group-full">
+                                <label class="form-label" for="payment-notes">Transaction Notes</label>
+                                <textarea id="payment-notes" rows="2" class="form-control" placeholder="Add invoice numbers, transaction IDs, or milestone details..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" id="cancel-payment-btn" class="btn-action-secondary">Cancel</button>
+                                <button type="submit" class="btn-action-primary">Save Payment Record</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Payments Table -->
+                    <div class="table-responsive">
+                        <table class="finance-table" id="payments-table">
+                            <thead>
+                                <tr>
+                                    <th>Txn ID</th>
+                                    <th>Client & Project</th>
+                                    <th>Total Contract</th>
+                                    <th>Amount Received</th>
+                                    <th>Pending Invoice</th>
+                                    <th>Milestone Expenses</th>
+                                    <th>Profit</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payments-body">
+                                <tr><td colspan="10" style="text-align:center; padding: 2rem;">Loading payment records...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3: EXPENDITURES -->
+            <div id="section-expenditures" style="display: none;">
+                <div class="finance-section">
+                    <div class="section-header-actions">
+                        <h2><i data-lucide="receipt" style="color: var(--danger);"></i> Business Expenditure Log</h2>
+                        <div class="filter-bar">
+                            <div class="search-container">
+                                <i data-lucide="search"></i>
+                                <input type="text" id="expenses-search" class="search-input" placeholder="Search expenses, vendors...">
+                            </div>
+                            <select id="expenses-category-filter" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="Developer Payouts">Developer Payouts</option>
+                                <option value="Infrastructure / Hosting">Infrastructure / Hosting</option>
+                                <option value="Software / SaaS">Software / SaaS</option>
+                                <option value="Marketing / Ads">Marketing / Ads</option>
+                                <option value="Office / Operations">Office / Operations</option>
+                                <option value="Taxes & Fees">Taxes & Fees</option>
+                                <option value="Miscellaneous">Miscellaneous</option>
+                            </select>
+                            <button id="add-expense-btn" class="btn-action-primary" style="background: linear-gradient(135deg, var(--danger), var(--secondary)); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);"><i data-lucide="plus-circle"></i> Log Expense</button>
+                        </div>
+                    </div>
+
+                    <!-- Expense Add/Edit Form -->
+                    <div id="expense-form-container" class="panel-form-container">
+                        <h3 id="expense-form-title" class="panel-form-title">Log Business Expense</h3>
+                        <form id="expense-form">
+                            <input type="hidden" id="expense-db-id">
+                            
+                            <div class="form-grid-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="expense-title">Expense Title / Item</label>
+                                    <input type="text" id="expense-title" class="form-control" required placeholder="e.g. AWS Hosting Fees, Contractor Payout">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="expense-category">Category</label>
+                                    <select id="expense-category" class="form-control" required>
+                                        <option value="Developer Payouts">Developer Payouts</option>
+                                        <option value="Infrastructure / Hosting">Infrastructure / Hosting</option>
+                                        <option value="Software / SaaS">Software / SaaS</option>
+                                        <option value="Marketing / Ads">Marketing / Ads</option>
+                                        <option value="Office / Operations">Office / Operations</option>
+                                        <option value="Taxes & Fees">Taxes & Fees</option>
+                                        <option value="Miscellaneous">Miscellaneous</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="expense-amount">Expense Amount (₹)</label>
+                                    <input type="number" id="expense-amount" class="form-control" min="0" required placeholder="0">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="expense-date">Expense Date</label>
+                                    <input type="date" id="expense-date" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="expense-vendor">Vendor / Paid To</label>
+                                    <input type="text" id="expense-vendor" class="form-control" required placeholder="e.g. Amazon Web Services, Rithish">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="expense-ref">Reference ID / Invoice No.</label>
+                                    <input type="text" id="expense-ref" class="form-control" placeholder="e.g. INV-109283">
+                                </div>
+                            </div>
+
+                            <div class="form-group-full">
+                                <label class="form-label" for="expense-notes">Expense Details & Remarks</label>
+                                <textarea id="expense-notes" rows="2" class="form-control" placeholder="Describe what this expenditure covers..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" id="cancel-expense-btn" class="btn-action-secondary">Cancel</button>
+                                <button type="submit" class="btn-action-primary" style="background: linear-gradient(135deg, var(--danger), var(--secondary));">Save Expense</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Expenditures Table -->
+                    <div class="table-responsive">
+                        <table class="finance-table" id="expenses-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Expense Description</th>
+                                    <th>Category</th>
+                                    <th>Vendor / Paid To</th>
+                                    <th>Reference ID</th>
+                                    <th>Amount Paid</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="expenses-body">
+                                <tr><td colspan="7" style="text-align:center; padding: 2rem;">Loading expenditure log...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: FINANCIAL REPORTS -->
+            <div id="section-reports" style="display: none;">
+                <div class="finance-section">
+                    <div class="section-header-actions">
+                        <h2><i data-lucide="file-text" style="color: var(--accent);"></i> Profit & Loss (P&L) Reports</h2>
+                        <div class="filter-bar">
+                            <select id="reports-year-filter" class="filter-select">
+                                <option value="2026">Financial Year 2026</option>
+                                <option value="2025">Financial Year 2025</option>
+                                <option value="all">All Available Years</option>
+                            </select>
+                            <button id="export-csv-btn" class="btn-action-secondary"><i data-lucide="download"></i> Export CSV</button>
+                            <button id="print-report-btn" class="btn-action-primary" style="background: linear-gradient(135deg, var(--accent), var(--primary)); box-shadow:0 4px 15px rgba(6, 182, 212, 0.25);"><i data-lucide="printer"></i> Print Statement</button>
+                        </div>
+                    </div>
+
+                    <!-- P&L Aggregated Summary Cards -->
+                    <div class="pl-summary-grid">
+                        <div class="pl-metric">
+                            <div class="pl-metric-label">Total Cash Inflow</div>
+                            <div class="pl-metric-value" id="pl-total-revenue" style="color: var(--primary);">₹0.00</div>
+                        </div>
+                        <div class="pl-metric">
+                            <div class="pl-metric-label">Total Cash Outflow</div>
+                            <div class="pl-metric-value" id="pl-total-expenses" style="color: var(--danger);">₹0.00</div>
+                        </div>
+                        <div class="pl-metric">
+                            <div class="pl-metric-label">Company Net Profits</div>
+                            <div class="pl-metric-value" id="pl-net-profit" style="color: var(--success);">₹0.00</div>
+                        </div>
+                        <div class="pl-metric">
+                            <div class="pl-metric-label">Operating Margin</div>
+                            <div class="pl-metric-value" id="pl-profit-margin" style="color: var(--info);">0.0%</div>
+                        </div>
+                    </div>
+
+                    <!-- P&L Monthly Statement Table -->
+                    <h3 style="font-size: 1.15rem; margin-bottom: 1.2rem; font-weight: 700;">Monthly Breakdown Sheet</h3>
+                    <div class="table-responsive" style="margin-bottom: 2.5rem;">
+                        <table class="finance-table" style="background: rgba(255,255,255,0.005); border: 1px solid var(--border-color); border-radius:12px;">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Sales Inflow (Project Revenue)</th>
+                                    <th>Project Direct Costs</th>
+                                    <th>General Expenditures</th>
+                                    <th>Total Outflows (Cost)</th>
+                                    <th>Net P&L (Profit/Loss)</th>
+                                    <th>Profit Margin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pl-monthly-body">
+                                <tr><td colspan="7" style="text-align:center; padding: 2rem;">Loading monthly report calculations...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Expenses Category Analysis Table -->
+                    <h3 style="font-size: 1.15rem; margin-bottom: 1.2rem; font-weight: 700;">Expenditure Category Summary</h3>
+                    <div class="table-responsive">
+                        <table class="finance-table" style="background: rgba(255,255,255,0.005); border: 1px solid var(--border-color); border-radius:12px;">
+                            <thead>
+                                <tr>
+                                    <th>Expense Category</th>
+                                    <th>No. of Logs</th>
+                                    <th>Total Amount Spent</th>
+                                    <th>Percentage of Outgoings (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pl-category-body">
+                                <tr><td colspan="4" style="text-align:center; padding: 2rem;">Calculating category breakdown...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    
+    <!-- Link to Main Controller Script -->
+    <script src="finance.js"></script>
+</body>
+</html>
