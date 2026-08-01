@@ -128,6 +128,7 @@
             <a href="#projects"><i data-lucide="briefcase"></i> Projects</a>
             <a href="#orders"><i data-lucide="package"></i> Track Orders</a>
             <a href="#blogs"><i data-lucide="book-open"></i> Blog Posts</a>
+            <a href="#materials"><i data-lucide="cpu"></i> Project Materials</a>
             <a href="#subscribers"><i data-lucide="users"></i> Subscribers</a>
             <a href="finance.html" style="border: 1px solid var(--border-color); margin-top: 2rem; background: rgba(99, 102, 241, 0.05); color: var(--primary);"><i data-lucide="bar-chart-3"></i> Finance Panel</a>
             
@@ -476,6 +477,112 @@
                         </thead>
                         <tbody id="blogs-body">
                             <tr><td colspan="4">Loading blog posts...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Project Materials Section -->
+            <section id="materials" class="admin-card" style="display:none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Project Materials & Sources</h2>
+                    <button id="add-material-btn" class="btn-primary" style="padding: 0.5rem 1rem; border-radius: 8px;">
+                        <i data-lucide="plus"></i> Add Project
+                    </button>
+                </div>
+                
+                <!-- Add/Edit Material Form -->
+                <div id="material-form-container" style="display: none; background: rgba(0,0,0,0.02); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); margin-bottom: 2rem;">
+                    <h3 id="material-form-title" style="margin-bottom: 1rem;">Add New Project Material</h3>
+                    <form id="material-form">
+                        <input type="hidden" id="material-id">
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Project Title</label>
+                                <input type="text" id="material-title" required placeholder="e.g. Smart Plant Waterer" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Category</label>
+                                <select id="material-category" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; background: #fff;">
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="Arduino">Arduino</option>
+                                    <option value="ESP8266 & IoT">ESP8266 & IoT</option>
+                                    <option value="ESP32 & IoT">ESP32 & IoT</option>
+                                    <option value="Raspberry Pi">Raspberry Pi</option>
+                                    <option value="Robotics">Robotics</option>
+                                    <option value="Sensors & DIY">Sensors & DIY</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">YouTube Video URL</label>
+                                <input type="url" id="material-youtube" required placeholder="e.g. https://www.youtube.com/watch?v=..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Main Cover Image URL</label>
+                                <input type="url" id="material-img" placeholder="https://..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Circuit Diagram Image URL</label>
+                                <input type="url" id="material-circuit-img" required placeholder="https://..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Finished Build Image URL (Optional)</label>
+                                <input type="url" id="material-build-img" placeholder="https://..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-grid" style="margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Google Drive Code Download Link</label>
+                                <input type="url" id="material-code-link" required placeholder="e.g. https://drive.google.com/drive/folders/..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 600; font-size: 0.9rem;">Google Drive Libraries Download Link (Optional)</label>
+                                <input type="url" id="material-libraries-link" placeholder="e.g. https://drive.google.com/drive/folders/..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label style="font-weight: 600; font-size: 0.9rem;">Short Summary (for list cards)</label>
+                            <textarea id="material-summary" rows="2" required placeholder="A brief hook explaining the project..." style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd;"></textarea>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label style="font-weight: 600; font-size: 0.9rem;">Step-by-Step Instructions & Setup Guide (HTML allowed)</label>
+                            <textarea id="material-instructions" rows="6" required placeholder="<h3>Circuit Configuration</h3><p>Connect the bluetooth RX to Arduino TX...</p>" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid #ddd; font-family: monospace;"></textarea>
+                        </div>
+
+                        <!-- Components List Builder -->
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="font-weight: 700; font-size: 1rem; display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; color: var(--text-main);">
+                                Components & Materials Required
+                                <button type="button" id="add-component-row-btn" style="background: var(--primary); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem;">+ Add Component Row</button>
+                            </label>
+                            <div id="components-rows-container" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                <!-- Dynamic rows of components go here -->
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="submit" class="btn-primary" style="padding: 0.6rem 1.2rem; border-radius: 8px; border:none; cursor:pointer;">Save Material</button>
+                            <button type="button" id="cancel-material-btn" class="btn-outline" style="padding: 0.6rem 1.2rem; border-radius: 8px; cursor:pointer;">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Thumbnail</th>
+                                <th>Title & Category</th>
+                                <th>Components</th>
+                                <th style="min-width: 150px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="materials-body">
+                            <tr><td colspan="4">Loading materials...</td></tr>
                         </tbody>
                     </table>
                 </div>

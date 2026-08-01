@@ -820,6 +820,212 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Firebase Blogs Error:", error);
         });
 
+        // --- Project Materials CRUD Logic ---
+        const materialsRef = database.ref('materials');
+        const materialsBody = document.getElementById('materials-body');
+        const materialFormContainer = document.getElementById('material-form-container');
+        const materialForm = document.getElementById('material-form');
+        const addMaterialBtn = document.getElementById('add-material-btn');
+        const cancelMaterialBtn = document.getElementById('cancel-material-btn');
+        const addComponentRowBtn = document.getElementById('add-component-row-btn');
+        const componentsRowsContainer = document.getElementById('components-rows-container');
+
+        // Dynamic Component Row Builder helper
+        function createComponentRow(name = '', qty = '', buyUrl = '') {
+            const row = document.createElement('div');
+            row.style.display = 'flex';
+            row.style.gap = '0.5rem';
+            row.style.alignItems = 'center';
+            row.className = 'component-row';
+            row.innerHTML = `
+                <input type="text" class="comp-name" required placeholder="Component Name (e.g. Arduino Uno)" value="${name}" style="flex: 2; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border-color); color: #000 !important; background-color: #fff !important;">
+                <input type="text" class="comp-qty" required placeholder="Qty" value="${qty}" style="flex: 0.5; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border-color); color: #000 !important; background-color: #fff !important;">
+                <input type="url" class="comp-url" placeholder="Buy URL (e.g. https://...)" value="${buyUrl}" style="flex: 2; padding: 0.6rem; border-radius: 8px; border: 1px solid var(--border-color); color: #000 !important; background-color: #fff !important;">
+                <button type="button" class="btn-danger remove-comp-row-btn" style="padding: 0.6rem; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); transition: all 0.2s;">
+                    <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                </button>
+            `;
+            componentsRowsContainer.appendChild(row);
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+
+            // Bind delete action for the row
+            row.querySelector('.remove-comp-row-btn').addEventListener('click', () => {
+                row.remove();
+            });
+        }
+
+        if (addComponentRowBtn) {
+            addComponentRowBtn.addEventListener('click', () => {
+                createComponentRow();
+            });
+        }
+
+        if (addMaterialBtn) {
+            addMaterialBtn.addEventListener('click', () => {
+                materialForm.reset();
+                document.getElementById('material-id').value = '';
+                componentsRowsContainer.innerHTML = '';
+                // Add one default empty row
+                createComponentRow();
+                document.getElementById('material-form-title').innerText = 'Add New Project Material';
+                materialFormContainer.style.display = 'block';
+            });
+        }
+
+        if (cancelMaterialBtn) {
+            cancelMaterialBtn.addEventListener('click', () => {
+                materialFormContainer.style.display = 'none';
+                materialForm.reset();
+                componentsRowsContainer.innerHTML = '';
+            });
+        }
+
+        if (materialForm) {
+            materialForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('material-id').value;
+
+                // Parse components
+                const components = [];
+                const rows = componentsRowsContainer.querySelectorAll('.component-row');
+                rows.forEach(row => {
+                    const name = row.querySelector('.comp-name').value.trim();
+                    const qty = row.querySelector('.comp-qty').value.trim();
+                    const buyUrl = row.querySelector('.comp-url').value.trim();
+                    if (name && qty) {
+                        components.push({ name, qty, buyUrl });
+                    }
+                });
+
+                const materialData = {
+                    title: document.getElementById('material-title').value.trim(),
+                    category: document.getElementById('material-category').value,
+                    youtube: document.getElementById('material-youtube').value.trim(),
+                    img: document.getElementById('material-img').value.trim(),
+                    circuitImg: document.getElementById('material-circuit-img').value.trim(),
+                    buildImg: document.getElementById('material-build-img').value.trim(),
+                    codeLink: document.getElementById('material-code-link').value.trim(),
+                    librariesLink: document.getElementById('material-libraries-link').value.trim(),
+                    summary: document.getElementById('material-summary').value.trim(),
+                    instructions: document.getElementById('material-instructions').value.trim(),
+                    components: components,
+                    timestamp: Date.now()
+                };
+
+                if (id) {
+                    materialsRef.child(id).update(materialData)
+                        .then(() => {
+                            alert('Project material updated successfully!');
+                            materialFormContainer.style.display = 'none';
+                            materialForm.reset();
+                            componentsRowsContainer.innerHTML = '';
+                        })
+                        .catch(err => alert('Error updating material: ' + err.message));
+                } else {
+                    materialsRef.push().set(materialData)
+                        .then(() => {
+                            alert('Project material published successfully!');
+                            materialFormContainer.style.display = 'none';
+                            materialForm.reset();
+                            componentsRowsContainer.innerHTML = '';
+                        })
+                        .catch(err => alert('Error publishing material: ' + err.message));
+                }
+            });
+        }
+
+        let materialsCache = {};
+
+        materialsRef.on('value', (snapshot) => {
+            if (!materialsBody) return;
+            materialsBody.innerHTML = '';
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                materialsCache = data;
+                let htmlStr = '';
+                Object.keys(data).reverse().forEach(key => {
+                    const item = data[key];
+                    if (!item) return;
+
+                    const compCount = item.components ? item.components.length : 0;
+                    const safeImg = item.img || '1.JPG';
+
+                    htmlStr += `
+                        <tr>
+                            <td><img src="${safeImg}" alt="${item.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;"></td>
+                            <td>
+                                <strong style="color: var(--text-main); font-size: 1.05rem;">${item.title}</strong>
+                                <span style="background:var(--primary); color:#fff; font-size:0.7rem; font-weight:700; padding:0.15rem 0.4rem; border-radius:4px; margin-left:0.5rem; display:inline-block; line-height:1.2;">${item.category || 'Arduino'}</span><br>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">${item.summary ? item.summary.substring(0, 80) + (item.summary.length > 80 ? '...' : '') : ''}</span>
+                            </td>
+                            <td>
+                                <span style="font-size: 0.88rem; font-weight:600; color: var(--text-main);">${compCount} items</span>
+                            </td>
+                            <td>
+                                <button class="edit-material btn-primary" data-id="${key}" style="padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.8rem; margin-right: 0.5rem; cursor:pointer; background: var(--primary); border:none;">Edit</button>
+                                <button class="btn-danger delete-material" data-id="${key}">Delete</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                materialsBody.innerHTML = htmlStr;
+
+                // Bind Edit Click Events
+                document.querySelectorAll('.edit-material').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        const item = materialsCache[id];
+                        if (!item) return;
+
+                        document.getElementById('material-id').value = id;
+                        document.getElementById('material-title').value = item.title || '';
+                        document.getElementById('material-category').value = item.category || 'Arduino';
+                        document.getElementById('material-youtube').value = item.youtube || '';
+                        document.getElementById('material-img').value = item.img || '';
+                        document.getElementById('material-circuit-img').value = item.circuitImg || '';
+                        document.getElementById('material-build-img').value = item.buildImg || '';
+                        document.getElementById('material-code-link').value = item.codeLink || '';
+                        document.getElementById('material-libraries-link').value = item.librariesLink || '';
+                        document.getElementById('material-summary').value = item.summary || '';
+                        document.getElementById('material-instructions').value = item.instructions || '';
+
+                        // Rebuild component rows
+                        componentsRowsContainer.innerHTML = '';
+                        if (item.components && item.components.length > 0) {
+                            item.components.forEach(comp => {
+                                createComponentRow(comp.name, comp.qty, comp.buyUrl);
+                            });
+                        } else {
+                            createComponentRow();
+                        }
+
+                        document.getElementById('material-form-title').innerText = 'Edit Project Material';
+                        materialFormContainer.style.display = 'block';
+                        document.getElementById('materials').scrollIntoView({ behavior: 'smooth' });
+                    });
+                });
+
+                // Bind Delete Click Events
+                document.querySelectorAll('.delete-material').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        if (confirm('Are you absolutely sure you want to delete this project material?')) {
+                            materialsRef.child(id).remove()
+                                .then(() => alert('Project material deleted.'))
+                                .catch(err => alert('Error: ' + err.message));
+                        }
+                    });
+                });
+            } else {
+                materialsBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 2rem;">No materials found. Click "Add Project" to write one.</td></tr>';
+            }
+        }, (error) => {
+            materialsBody.innerHTML = `<tr><td colspan="4" style="color:#ef4444; font-weight:bold; padding: 2rem;">Firebase Error: ${error.message}</td></tr>`;
+            console.error("Firebase Materials Error:", error);
+        });
+
         // --- Admin Navigation Tabs Logic ---
         const tabs = document.querySelectorAll('.admin-sidebar a[href^="#"]');
         const sections = document.querySelectorAll('.admin-card');
